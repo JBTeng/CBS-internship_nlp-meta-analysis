@@ -1,40 +1,48 @@
-# ===========
-# 1. Mac 系统垃圾 (让 Jonas 的 Windows 电脑保持干净)
-# ===========
+# ===========================
+# 1. System Files (Keep repo clean for Windows/Linux users)
+# ===========================
 .DS_Store
 .AppleDouble
 .LSOverride
 
-# ===========
-# 2. Python 运行垃圾 (自动生成的缓存，不需要上传)
-# ===========
+# ===========================
+# 2. Python Cache & Build Artifacts
+# ===========================
 __pycache__/
 *.pyc
 *.pyo
+build/
+dist/
+*.egg-info/
 
-# ===========
-# 3. Jupyter Notebook 临时文件
-# ===========
+# ===========================
+# 3. Jupyter Notebook Checkpoints
+# ===========================
 .ipynb_checkpoints/
 
-# ===========
-# 4. 【高危】CBS 数据安全区 (绝对不能上传！！)
-# ===========
-# 忽略 data 文件夹下的所有内容
+# ===========================
+# 4. [CRITICAL] Data Security & Privacy (CBS Compliance)
+# ===========================
+# Ignore all data directory contents to prevent leakage
 data/
-# 但是！保留 data 文件夹里的说明书 (证明你有合规意识)
+
+# Exception: Keep the README to maintain folder structure
 !data/README.md
 
-# 忽略所有 Excel, CSV, PDF 文件 (双重保险)
+# Exception: Keep dummy data for reproducibility (if created)
+!data/dummy_data.csv
+
+# Ignore specific large or sensitive file types everywhere
 *.csv
 *.xlsx
 *.xls
 *.pdf
 *.ris
+*.h5
 
-# ===========
-# 5. 个人环境配置 (防泄露)
-# ===========
+# ===========================
+# 5. Environment Variables & Secrets
+# ===========================
 .env
 .venv
 env/
