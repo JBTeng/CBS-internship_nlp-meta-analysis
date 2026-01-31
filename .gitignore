@@ -1,1 +1,41 @@
+# ===========
+# 1. Mac 系统垃圾 (让 Jonas 的 Windows 电脑保持干净)
+# ===========
+.DS_Store
+.AppleDouble
+.LSOverride
 
+# ===========
+# 2. Python 运行垃圾 (自动生成的缓存，不需要上传)
+# ===========
+__pycache__/
+*.pyc
+*.pyo
+
+# ===========
+# 3. Jupyter Notebook 临时文件
+# ===========
+.ipynb_checkpoints/
+
+# ===========
+# 4. 【高危】CBS 数据安全区 (绝对不能上传！！)
+# ===========
+# 忽略 data 文件夹下的所有内容
+data/
+# 但是！保留 data 文件夹里的说明书 (证明你有合规意识)
+!data/README.md
+
+# 忽略所有 Excel, CSV, PDF 文件 (双重保险)
+*.csv
+*.xlsx
+*.xls
+*.pdf
+*.ris
+
+# ===========
+# 5. 个人环境配置 (防泄露)
+# ===========
+.env
+.venv
+env/
+venv/
