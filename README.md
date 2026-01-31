@@ -5,6 +5,29 @@ This repository contains the code and data analysis for my Master's Thesis in St
 
 **Objective:**
 
+## 📂 Repository Structure
+
+The project directory is organized as follows:
+
+```text
+├── data/
+│   ├── raw/               # Raw bibliographic data (e.g., .ris, .csv)
+│   ├── intermediate/      # Data during ASReview screening
+│   └── processed/         # Final dataset for meta-analysis
+│   └── README.md          # Note: Real data is stored locally for CBS security compliance
+├── notebooks/             # Jupyter Notebooks for exploration and visualization
+├── src/                   # Source code for data processing and analysis
+│   ├── __init__.py
+│   ├── preprocessing.py   # Scripts to clean text data
+│   └── analysis.py        # Statistical models (Meta-analysis)
+├── results/               # Generated outputs
+│   ├── figures/           # Forest plots, Funnel plots
+│   └── tables/            # Summary statistics tables
+├── .gitignore             # Specifies intentionally untracked files
+├── README.md              # Project overview and instructions
+└── requirements.txt       # Python dependencies (e.g., asreview, pandas)
+```
+
 ## Tools Used
 * **ASReview:** For active learning-based literature screening.
 * **Python:** For data extraction and statistical analysis.
