@@ -1,12 +1,29 @@
 # Meta-analysis:
 
-## Project Overview
+## 🎯Project Overview
 This repository contains the code and data analysis for my Master's Thesis in Statistics & Data Science at Leiden University, conducted in collaboration with **Statistics Netherlands (CBS)**.
 
-**Objective:**
+### **Objective:**
+This study performs a three-level meta-analysis on NLP models applied to high-dimensional/structural Automated Coding tasks (occupation coding, clinical coding, etc.).
 
-## Schedule
 
+## 📅 Schedule (preliminary)
+| Task | Schedule |
+| :--- | :--- |
+| **Onboarding & Organization** | 🧠 Feb W1, Feb W2 |
+| **Refining project scope & goals** | 🧠 Feb W1, Feb W2 |
+| **Tool setup (Python/ASReview/Git)** | 🧠 Feb W1, Feb W2 |
+| **Writing thesis proposal** | ✍ Feb W3 - Mar W2 |
+| **Submit thesis proposal (Milestone)** | ❗ Mar W2 |
+| **Literature Search & Deduplication** | 🖥️ Mar W3, Mar W4 |
+| **ASReview Screening (Active Learning)** | 🖥️ Mar W4 - Apr W2 |
+| **Full-text Retrieval & Eligibility** | 👀 Apr W3, Apr W4 |
+| **Data Extraction & Quality Assessment** | 🖥️ May W1 - May W4 |
+| **Data Analysis in R (Meta-analysis)** | 🖥️ May W3 - Jun W4 |
+| **Writing research report (Draft)** | ✍ Jun W1 - Jul W2 |
+| **Review & Revisions** | 🤔 Jul W3, Jul W4 |
+| **Final Presentation (Milestone)** | ❗ Aug W1 |
+| **Submit Final Thesis (Milestone)** | ❗ Aug W1 |
 
 ## 📂 Repository Structure (preliminary)
 
@@ -31,7 +48,7 @@ The project directory is organized as follows:
 └── requirements.txt       # Python dependencies (e.g., asreview, pandas)
 ```
 
-## Tools Used
+## 🛠️Tools Used
 * **ASReview:** For active learning-based literature screening.
 * **Python:** For data extraction and statistical analysis.
 * **R:** For meta-analytical modeling (metafor package).
