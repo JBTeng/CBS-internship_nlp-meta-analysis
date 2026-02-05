@@ -5,7 +5,10 @@ This repository contains the code and data analysis for my Master's Thesis in St
 
 **Objective:**
 
-## 📂 Repository Structure
+## Schedule
+
+
+## 📂 Repository Structure (preliminary)
 
 The project directory is organized as follows:
 
