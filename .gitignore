@@ -28,10 +28,10 @@ data/*
 !data/*/
 # Exception: Keep the README to maintain folder structure
 !data/README.md
-!data/**/.gitkeep
-
 # Exception: Keep dummy data/demos for reproducibility 
 !data/dummy
+# Exception: make the subfile push-able
+!data/**/.gitkeep
 
 # Ignore specific large or sensitive file types everywhere
 *.csv
