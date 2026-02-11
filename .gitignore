@@ -24,7 +24,7 @@ dist/
 # 4. [CRITICAL] Data Security & Privacy (CBS Compliance)
 # ===========================
 # Ignore all data directory contents to prevent leakage
-data/
+data/*
 
 # Exception: Keep the README to maintain folder structure
 !data/README.md
