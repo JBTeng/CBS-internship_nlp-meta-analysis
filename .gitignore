@@ -32,7 +32,7 @@ dist/
 *.h5
 
 # Ignore all data directory contents to prevent leakage but not the first sub folder
-data/
+data/*
 !data/*/
 # Exception: Keep the README to maintain folder structure
 !data/README.md
