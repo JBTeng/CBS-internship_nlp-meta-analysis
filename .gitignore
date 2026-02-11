@@ -28,6 +28,7 @@ data/
 
 # Exception: Keep the README to maintain folder structure
 !data/README.md
+!data/**/.gitkeep
 
 # Exception: Keep dummy data for reproducibility (if created)
 !data/dummy_data.csv
