@@ -1,0 +1,700 @@
+﻿TY  - JOUR
+AU  - Millot, A
+AU  - Kerekes, A
+AU  - Korkovelos, A
+AU  - Stringer, M
+AU  - Hawkes, A
+TI  - Electricity demand mapping from open-source data for low- and middle-income countries
+T2  - RENEWABLE AND SUSTAINABLE ENERGY TRANSITION
+LA  - English
+KW  - Electricity consumption
+KW  - Geographic information systems (GIS)
+KW  - Open-source energy modelling
+KW  - Open data
+KW  - LMICs
+KW  - Zambia
+KW  - High-resolution mapping
+KW  - ENERGY DEMAND
+KW  - CONSUMPTION
+KW  - HEAT
+KW  - MANAGEMENT
+KW  - SIMULATION
+KW  - RESOLUTION
+AB  - Spatially resolved energy systems modelling is increasingly used to provide more accurate insights into electrification planning and infrastructure development, yet spatially resolved electricity demand data is often unavailable in low- and middle-income countries (LMICs). This study presents a novel, open-source methodology to build a high-resolution electricity demand map covering the buildings and industry sectors, and applies it to Zambia as a case study. Our approach integrates publicly available GIS data, national surveys (DHS), and official statistics. For the buildings sector, machine learning is used to map residential demand and a top-down model for services; industrial demand is assessed with a separate bottom-up process model. Our bottom-up estimates are validated against national statistics, capturing 70 % of residential and 80 % of industrial demand before final scaling. The results reveal a stark geographic concentration of consumption, with the Lusaka and Copperbelt provinces alone accounting for nearly 60 % of building demand and the vast majority of industrial demand. This granular dataset can underpin the development of spatially explicit energy system models, facilitating informed decisions on grid infrastructure expansion, optimising electrification for off-grid areas, and supporting more equitable energy access in line with Sustainable Development Goals. The methodology is designed for replicability in other countries, offering a valuable tool for researchers and policymakers across other LMICs.
+AD  - Imperial Coll London, Dept Chem Engn, London, EnglandAD  - Tech Univ Munich, TUM Sch Engn & Design, Munich, GermanyAD  - UNOPS, Integrated Energy Planning Unit, Sustainable Energy ALL SEforALL, Vienna, AustriaC3  - Imperial College LondonC3  - Technical University of MunichFU  - Climate Compatible Growth (CCG) programme - UK aid from the UK government
+FX  - This material has been produced with support from the Climate Compatible Growth (CCG) programme. CCG is funded by UK aid from the UK government. However, the views expressed herein do not necessarily reflect the UK government's official policies.
+PU  - ELSEVIER
+PI  - AMSTERDAM
+PA  - RADARWEG 29, 1043 NX AMSTERDAM, NETHERLANDS
+SN  - 2667-095X
+J9  - RENEW SUST ENERGY TR
+JI  - Renew. Sustain. Energy Transit.
+DA  - JUN
+PY  - 2026
+VL  - 9
+C7  - 100138
+DO  - 10.1016/j.rset.2026.100138
+WE  - Emerging Sources Citation Index (ESCI)AN  - WOS:001674199900001
+N1  - Times Cited in Web of Science Core Collection:  0
+Total Times Cited:  0
+Cited Reference Count:  98
+ER  -
+
+TY  - JOUR
+AU  - Amalfitano, D
+AU  - Coppola, R
+AU  - Distante, D
+AU  - Ricca, F
+TI  - AI in GUI-based testing: A survey of techniques, tools, and perceived advantages and limitations
+T2  - JOURNAL OF SYSTEMS AND SOFTWARE
+LA  - English
+KW  - GUI-based testing
+KW  - Artificial intelligence in software testing
+KW  - AI-based testing tools
+KW  - Software testing survey
+KW  - Artificial intelligence survey
+KW  - Industry-academia comparison
+AB  - Background: The adoption of Artificial Intelligence (AI) techniques in Software Testing (ST) has grown rapidly, particularly in response to the increasing complexity of modern systems. In GUI-based testing, AI is often cited as a promising means to automate repetitive tasks and improve testing efficiency. However, the actual use of AI in this domain remains underexplored through systematic empirical investigation. Objective: This study aims to analyze how AI is adopted in GUI-based testing, identifying the techniques and tools employed, the testing activities they support, and the perceived benefits and limitations. Method: We conducted a large-scale survey involving 107 participants from both academia and industry. The survey focuses on three core testing activities: test case definition, test oracle design, and test case optimization. It extends a prior study based on interviews with 45 industry practitioners. Results: Findings show that AI is primarily used to support test case definition, with techniques such as Natural Language Processing, Optimization, and Large Language Models (LLMs) being the most common. AI also provides support in test oracle design, where image processing and knowledge representation play key roles, and in test suite optimization, through the use of supervised learning, reinforcement learning, and search-based techniques. Conclusion: The paper identifies ongoing challenges and outlines future directions, including the need for transparent AI tools, guidelines for LLM integration, and the deployment of a continuously open survey to monitor trends in AI adoption over time.
+AD  - Univ Naples Federico II, Via Claudio 21, I-80125 Naples, ItalyAD  - Polytech Univ Turin, Corso Duca Abruzzi 24, I-10129 Turin, ItalyAD  - Univ Rome UnitelmaSapienza, Piazza Sassari 4, I-00161 Rome, ItalyAD  - Univ Genoa, Via Dodecaneso 35, I-16146 Genoa, ItalyC3  - University of Naples Federico IIC3  - Polytechnic University of TurinC3  - University of GenoaPU  - ELSEVIER SCIENCE INC
+PI  - NEW YORK
+PA  - STE 800, 230 PARK AVE, NEW YORK, NY 10169 USA
+SN  - 0164-1212
+SN  - 1873-1228
+J9  - J SYST SOFTWARE
+JI  - J. Syst. Softw.
+DA  - MAY
+PY  - 2026
+VL  - 235
+C7  - 112751
+DO  - 10.1016/j.jss.2025.112751
+WE  - Science Citation Index Expanded (SCI-EXPANDED)AN  - WOS:001661248100001
+N1  - Times Cited in Web of Science Core Collection:  0
+Total Times Cited:  0
+Cited Reference Count:  43
+ER  -
+
+TY  - JOUR
+AU  - Tamakloe, R
+AU  - Caesar, LD
+AU  - Kim, I
+TI  - Determinants of battery electric vehicle adoption concerns: insights from commercial fleet owners
+T2  - TRANSPORTATION RESEARCH PART A-POLICY AND PRACTICE
+LA  - English
+KW  - Battery electric vehicle
+KW  - Pollution
+KW  - Association rules mining
+KW  - Light-duty commercial vehicle
+KW  - Random parameters
+KW  - CONSUMER ATTITUDES
+KW  - WIDESPREAD ADOPTION
+KW  - ASSOCIATION RULES
+KW  - PREFERENCES
+KW  - BARRIERS
+KW  - ACCEPTANCE
+KW  - EXPERIENCE
+KW  - EFFICIENCY
+KW  - PURCHASE
+KW  - CRASHES
+AB  - Light-duty commercial vehicles contribute to urban transportation challenges, including traffic congestion and pollution, with these issues expected to worsen as commercial vehicle activity increases. Commercial Battery Electric Vehicles (BEVs) offer a potential solution by reducing fossil fuel dependency, but there is limited research on the concerns commercial entities have about adopting BEVs. Using the latest survey data from California, the study's goal is to apply both machine learning and econometric models to understand the factors associated with BEV adoption concerns among commercial entities. Specifically, the study identifies factor chains linked to concerns through association rule mining (ARM) and explores how various factors influence concern probabilities using a random parameters logit regression framework. The study focuses on the top five concerns regarding BEVs: limited driving range, hauling capacity, battery life uncertainty, cost, and charging infrastructure. ARM results indicate that construction industries and companies using pickups or trucks are particularly concerned about hauling capacity, while companies without BEV ownership are more likely to worry about high costs. Additionally, those without EVs in their fleet tend to focus on limited charging infrastructure and driving range. The regression models reinforce these findings but also reveal significant variability in how factors such as BEV ownership experience, industry type, and fleet composition influence concern probabilities. This variability offers insights beyond those provided by a fixed regression approach. The study concludes that targeted interventions addressing these key concerns could significantly facilitate BEV adoption in commercial fleets, helping to alleviate urban transportation and environmental issues.
+AD  - Korea Adv Inst Sci & Technol, Cho Chun Shik Grad Sch Mobil, 193 Munji Ro, Daejeon 34051, South KoreaAD  - Texas A&M Univ Galveston, Dept Maritime Business Adm, 200 Seawolf Pkwy, Galveston, TX 77554 USAC3  - Korea Advanced Institute of Science & Technology (KAIST)C3  - Texas A&M University SystemC3  - Texas A&M University College StationFU  - Korea Agency for Infrastructure Technology Advancement (KAIA) - Korean government (MOLIT) [RS-2022-00156089]
+FX  - This research was supported by a Korea Agency for Infrastructure Technology Advancement (KAIA) grant funded by the Korean government (MOLIT) (RS-2022-00156089) .
+PU  - PERGAMON-ELSEVIER SCIENCE LTD
+PI  - OXFORD
+PA  - THE BOULEVARD, LANGFORD LANE, KIDLINGTON, OXFORD OX5 1GB, ENGLAND
+SN  - 0965-8564
+SN  - 1879-2375
+J9  - TRANSPORT RES A-POL
+JI  - Transp. Res. Pt. A-Policy Pract.
+DA  - MAR
+PY  - 2026
+VL  - 205
+C7  - 104874
+DO  - 10.1016/j.tra.2026.104874
+WE  - Science Citation Index Expanded (SCI-EXPANDED)WE  - Social Science Citation Index (SSCI)AN  - WOS:001664883500001
+N1  - Times Cited in Web of Science Core Collection:  0
+Total Times Cited:  0
+Cited Reference Count:  78
+ER  -
+
+TY  - JOUR
+AU  - Wang, F
+AU  - Ren, AAI
+AU  - Cheng, J
+AU  - Zheng, YJ
+AU  - Zhou, X
+AU  - Qiao, L
+AU  - Yan, J
+AU  - Dong, F
+AU  - Zhao, Q
+AU  - Shen, J
+TI  - A survey of integrated multi-layer security for continuous-process industrial control systems: Insights from a steel manufacturing sector
+T2  - JOURNAL OF INDUSTRIAL INFORMATION INTEGRATION
+LA  - English
+KW  - Anomaly detection
+KW  - Artificial intelligence
+KW  - Cybersecurity
+KW  - Industrial control systems
+KW  - Industrial internet of things
+KW  - Multi-layer security
+KW  - Steel manufacturing
+KW  - ANOMALY DETECTION
+KW  - PREDICTIVE MAINTENANCE
+KW  - NEURAL-NETWORKS
+KW  - INTERNET
+KW  - THINGS
+KW  - AUTOENCODERS
+KW  - DIAGNOSIS
+KW  - TRENDS
+AB  - Continuous-process industries such as steel operate under tight safety and availability constraints while facing a rapidly expanding attack surface across device, network and behavioural layers. This survey consolidates evidence on legacy endpoints, protocol exposures, and process-level risks in steel manufacturing, and organises it in a structured, multi-layer taxonomy that clarifies how local faults can escalate to plant-wide disruption. Using a transparent literature search and screening protocol, the survey synthesises prior work on device hardening, network segmentation, and anomaly detection, and foregrounds what is distinctive about steel, including near-zero downtime operations and multi-vendor operational technology ecosystems. Building on this synthesis, the survey grounds actionable guidance in established industry standards by linking security controls to recognised programme requirements and mapping adversary techniques to an industrial control systems-focused attack framework, thereby providing plant-ready implementation cues. The survey also distils a phased integration workflow that locates analytics at the industrial edge and couples them with existing safety interlocks and operational change control. Case evidence from steel incidents is used to illustrate typical intrusion chains and to motivate layered mitigations. The review concludes by identifying priority research needs in data governance and benchmarking, as well as the edge-centric and safety-cased deployment of AI models, and supply-chain-aware machine learning operations. Taken together, these contributions provide a domain-grounded roadmap for strengthening resilience in steel-manufacturing industrial control systems while preserving operational continuity, and a transferable template for other continuous-process sectors.
+AD  - Nanjing Iron & Steel Grp Co Ltd, 8,Xingfu Rd,Xiejiadian Jiangbei New Area, Nanjing 210035, Jiangsu, Peoples R ChinaAD  - Univ Wollongong, Sch Comp & Informat Technol, Northfields Ave, Wollongong, NSW 2500, AustraliaAD  - Aerosp Informat Res Inst, Aerosp Informat Res Inst, 9,Dengzhuannan Rd, Beijing 100094, Haidian, Peoples R ChinaAD  - Univ New South Wales Canberra, Sch Engn & Informat Technol, Northcott Dr, Campbell, ACT 2612, AustraliaAD  - Southeast Univ, Sch Comp Sci & Engn, 2,Dongnandaxue Rd, Nanjing 211189, Jiangsu, Peoples R ChinaAD  - Shenyang Univ, Sch Econ, 21 Wanghua South St, Shenyang 110044, Liaoning, Peoples R ChinaC3  - University of WollongongC3  - University of New South Wales SydneyC3  - Southeast University - ChinaC3  - Shenyang UniversityPU  - ELSEVIER
+PI  - AMSTERDAM
+PA  - RADARWEG 29, 1043 NX AMSTERDAM, NETHERLANDS
+SN  - 2467-964X
+SN  - 2452-414X
+J9  - J IND INF INTEGR
+JI  - J. Ind. Inf. Integr.
+DA  - MAR
+PY  - 2026
+VL  - 50
+C7  - 101072
+DO  - 10.1016/j.jii.2026.101072
+WE  - Science Citation Index Expanded (SCI-EXPANDED)AN  - WOS:001679693400001
+N1  - Times Cited in Web of Science Core Collection:  0
+Total Times Cited:  0
+Cited Reference Count:  257
+ER  -
+
+TY  - JOUR
+AU  - Machado, JDU
+AU  - Veloso, B
+TI  - Turning web data into official statistics: Classifying Portuguese retail products with NLP models
+T2  - STATISTICAL JOURNAL OF THE IAOS
+LA  - English
+KW  - web scraping
+KW  - natural language processing
+KW  - product classification
+KW  - ECOICOP
+KW  - short text classification
+AB  - The growing availability of online data creates new opportunities to improve the timeliness and detail of official statistics, particularly in domains such as price monitoring and inflation measurement. However, leveraging web-scraped data for official use requires alignment with standardized classification frameworks such as the European Classification of Individual Consumption According to Purpose (ECOICOP). We train two natural-language models, a lightweight convolutional neural network (CNN) and a fine-tuned BERTimbau transformer, to classify Portuguese food and beverage items into ECOICOP categories. Using 100,000 product titles scraped from six national supermarket sites and labeled via a human-in-the-loop workflow, the CNN reaches a macro-F1 of 92.19 % with minimal computing cost, while the transformer attains 94.00 %, the first such result for Portuguese. Both models are published on Hugging Face, enabling reproducible inference at scale while the source data remain confidential. The study delivers the first open-source Portuguese ECOICOP classifiers for food and beverage products, a replicable low-resource labeling workflow, and a benchmark of accuracy-speed trade-offs to guide researchers in similar tasks.
+AD  - Univ Porto, FEP, Porto, PortugalAD  - LIAAD INESC TEC, Porto, PortugalC3  - Universidade do PortoC3  - INESC TECFU  - Microdata Research Laboratory (BPLIM)
+FX  - This work was developed through a partnership between the Faculty of Economics of the University of Porto and Banco de Portugal, as part of the European Master in Official Statistics (EMOS) programme. I would like to thank Banco de Portugal, in particular the Microdata Research Laboratory (BPLIM), for providing access to the data and for their continued support, guidance, and collaboration throughout the development of this research.
+PU  - SAGE PUBLICATIONS INC
+PI  - THOUSAND OAKS
+PA  - 2455 TELLER RD, THOUSAND OAKS, CA 91320 USA
+SN  - 1874-7655
+SN  - 1875-9254
+J9  - STAT J IAOS
+JI  - Stat. J. IAOS
+DA  - 2026 FEB 3
+PY  - 2026
+DO  - 10.1177/18747655251414407
+C6  - FEB 2026
+WE  - Emerging Sources Citation Index (ESCI)AN  - WOS:001679346600001
+N1  - Times Cited in Web of Science Core Collection:  0
+Total Times Cited:  0
+Cited Reference Count:  15
+ER  -
+
+TY  - JOUR
+AU  - Pandya, K
+AU  - Patel, T
+AU  - Pandya, A
+AU  - Upadhyaya, T
+AU  - Patel, U
+AU  - Kumar, OP
+TI  - Neural network-assisted quad-port UWB MIMO antenna with enhanced isolation for WLAN and Sub-6 GHz wireless applications
+T2  - AEU-INTERNATIONAL JOURNAL OF ELECTRONICS AND COMMUNICATIONS
+LA  - English
+KW  - AI-driven wireless communication systems
+KW  - Neural network-assisted antenna Modeling
+KW  - MIMO antenna
+KW  - Ultra wide band(UWB)
+KW  - Machine learning
+KW  - Isolation
+KW  - SDG 9 (industry
+KW  - Innovation and infrastructure)
+KW  - SDG 11 (sustainable cities and communities)
+KW  - BAND GAIN ENHANCEMENT
+KW  - COMPREHENSIVE SURVEY
+KW  - METAMATERIAL
+KW  - ARRAY
+AB  - The presented paper focuses on Neural Network (NN) based quad-port Multiple Input Multiple Output (MIMO) antenna development and analysis for 2.4/5 GHz WLAN, sub-6 GHz, and C-band communications. The engineered design exhibits the reflection coefficient values below-10 dB from 2.20 GHz to 11.70 GHz frequencies. The limited ground is proposed to attain the UWB response. The radiators are located orthogonally to each other at a minimum distance of half of the wavelength to minimize the mutual coupling effect. The flame-retardant material has been utilized to act as a substrate material with a dielectric constant is 4.3. The isolation geometry was developed and integrated with the ground structure to further improve the isolation. The conventional response has been generated using HFSS software. The proposed structure exhibits a gain of about 2 dBi, and efficiency is about 85 % to 90 %. The neural network has been trained, and the sets of data are given as input parameters to the NN. The NN predicted response was in line with the software-generated response. The values of diversity parameters, such as Channel Capacity Loss (CCL) is 0.001 bits/s/Hz, Envelop Correlation Coefficient (ECC) is 0.001 abs, Mean Effective Gain (MEG) is between-4 dB to-6 dB, and Diversity Gain (DG) is around 10 dB, were received. This work supports SDG 9 (Industry, Innovation and Infrastructure) by advancing AI-assisted wireless communication design and SDG 11 (Sustainable Cities and Communities) through improved reliability of WLAN and Sub-6 GHz systems.
+AD  - Charotar Univ Sci & Technol, Chandubhai S Patel Inst Technol, Elect & Commun Engn Dept, Anand, Gujarat, IndiaAD  - Charotar Univ Sci & Technol, Chandubhai S Patel Inst Technol, Informat & Technol Dept, Anand, Gujarat, IndiaAD  - Manipal Acad Higher Educ, Manipal Inst Technol, Dept Elect & Commun Engn, Manipal 576104, IndiaC3  - Charotar University of Science & Technology - CharusatC3  - Charotar University of Science & Technology - CharusatC3  - Manipal Academy of Higher Education (MAHE)PU  - ELSEVIER GMBH
+PI  - MUNICH
+PA  - HACKERBRUCKE 6, 80335 MUNICH, GERMANY
+SN  - 1434-8411
+SN  - 1618-0399
+J9  - AEU-INT J ELECTRON C
+JI  - AEU-Int. J. Electron. Commun.
+DA  - FEB
+PY  - 2026
+VL  - 206
+C7  - 156184
+DO  - 10.1016/j.aeue.2025.156184
+WE  - Science Citation Index Expanded (SCI-EXPANDED)AN  - WOS:001656537000001
+N1  - Times Cited in Web of Science Core Collection:  0
+Total Times Cited:  0
+Cited Reference Count:  40
+ER  -
+
+TY  - JOUR
+AU  - Qu, QL
+AU  - Zhang, L
+AU  - Zheng, Y
+TI  - Explainable AI for remaining useful life prediction in industrial systems: a survey
+T2  - MEASUREMENT SCIENCE AND TECHNOLOGY
+LA  - English
+KW  - remaining useful life prediction
+KW  - prognostics and health management
+KW  - explainable artificial intelligence
+KW  - PROGNOSTICS
+AB  - In Industry 4.0, the integration of artificial intelligence (AI) has transformed industrial operations, with predictive maintenance (PdM) emerging as a key application. As the core of PdM, remaining useful life (RUL) prediction enables a shift from reactive or preventive maintenance to proactive, data-driven strategies, helping to optimize scheduling, reduce downtime, and cut costs. Despite the high predictive accuracy of machine learning and deep learning models in RUL prediction, their inherent 'black-box' nature presents significant barriers to practical industrial adoption. These barriers include compromised trust in model outputs, difficulties in debugging and error tracing, challenges in meeting regulatory compliance requirements, and limited alignment with domain-specific expertise. Consequently, explainable AI (XAI) has become indispensable for addressing these issues and enabling wider deployment of RUL prediction systems in industrial settings. This paper presents a comprehensive survey of XAI for industrial RUL prediction. The survey begins by exploring the significance of RUL prediction, challenges of black-box models, the role of XAI, and its value in enhancing the reliability of RUL methods. Subsequently, it systematically synthesizes recent research advancements, categorizes XAI techniques into five types, and traces their technical evolution. It also develops a holistic evaluation framework encompassing approaches, properties, and metrics, supported by 11 functionally grounded quantitative indicators. Moreover, it establishes a comparative analysis system on eight typical public datasets to clarify their suitability for XAI integration and industrial applications, and puts forward future research directions that combine data, physics, large language models, and digital twins to bridge the gap between academic research and industrial deployment.
+AD  - Huazhong Univ Sci & Technol, Sch Artificial Intelligence & Automat, Belt & Rd Joint Lab Measurement & Control Technol, Wuhan, Peoples R ChinaAD  - City Univ Hong Kong, Dept Data Sci, Hong Kong, Peoples R ChinaAD  - Shenzhen Huazhong Univ Sci & Technol Res Inst, Shenzhen 518057, Peoples R ChinaC3  - Huazhong University of Science & TechnologyC3  - City University of Hong KongC3  - Shenzhen Huazhong University of Science & Technology Research InstituteFU  - Basic and Applied Basic Research Foundation of Guangdong Province [2025A1515010134]; National Natural Science Foundation of China [62503188]
+FX  - This work is supported in part by Natural Science Foundation of China under Grant No. 62503188, in part by Guangdong Basic and Applied Basic Research Foundation under Grant 2025A1515010134, in part by Hubei Province International Science and Technology Cooperation Project under Grant No. 2024EHA033, in part by the Interdisciplinary Research Program of Huazhong University of Science and Technology under Grant No. 2024JCYJ031.
+PU  - IOP Publishing Ltd
+PI  - Bristol
+PA  - No.2 The Distillery, Glassfields, Avon Street, Bristol, ENGLAND
+SN  - 0957-0233
+SN  - 1361-6501
+J9  - MEAS SCI TECHNOL
+JI  - Meas. Sci. Technol.
+DA  - JAN 30
+PY  - 2026
+VL  - 37
+IS  - 4
+C7  - 042002
+DO  - 10.1088/1361-6501/ae319f
+WE  - Science Citation Index Expanded (SCI-EXPANDED)AN  - WOS:001674092100001
+N1  - Times Cited in Web of Science Core Collection:  0
+Total Times Cited:  1
+Cited Reference Count:  111
+ER  -
+
+TY  - JOUR
+AU  - Saka, AB
+AU  - Chan, DWM
+AU  - Oluleye, B
+AU  - Dauda, JA
+AU  - Saad, A
+AU  - Ayinla, K
+AU  - Ajayi, S
+TI  - BIM diffusion prediction system for SMEs: an ensemble of ensembles machine learning approach
+T2  - ENGINEERING CONSTRUCTION AND ARCHITECTURAL MANAGEMENT
+LA  - English
+KW  - Technology
+KW  - Management
+KW  - Building information modelling
+KW  - Questionaire survey
+KW  - ADOPTION
+KW  - SMOTE
+KW  - MODEL
+AB  - PurposePrevious studies have focused on explaining the BIM adoption or implementation, and little is known about the diffusion trend. Thus, this study evaluates the BIM diffusion process in SMEs with a predictive machine learning modelling approach using the Nigeria construction industry as a case study.Design/methodology/approachEmpirical questionnaire was employed for BIM diffusion data collection, and the collected data was cleaned and balanced with hybridized SMOTE + Tomek links. Ensemble machine learning algorithms were applied to the collected data to develop predictive models for the BIM diffusion process. The optimized and best-performing models were stacked via a new model (ensemble of ensembles) and deployed in an interactive Python-based Application - BIM Diffusion Prediction System (BIM-DPS) - using Streamlit framework.FindingsThe most important features for BIM awareness in SMEs are observability, top management support and normative pressure while the top predictors of intention to adopt BIM in SMEs are compatibility, top management support and behaviour. These sets of same features have different impact on awareness and adoption. Also, these features are from technology, organization and environment contexts of the TOE framework and underscore social-technical nature of BIM which should be reflected in strategies to drive proliferation.Originality/valueThe study highlights the strong predictive performance of stacked ensemble models. It provides an easy-to-use application to forecast the behaviour of firms to mitigate risks and develop tailored interventions.
+AD  - Univ Westminster, Westminster Business Sch, London, EnglandAD  - Hong Kong Polytech Univ, Dept Bldg & Real Estate, Hong Kong, Peoples R ChinaAD  - Leeds Beckett Univ, Leeds, EnglandAD  - Loughborough Univ, Sch Architecture Bldg & Civil Engn, Loughborough, EnglandC3  - University of WestminsterC3  - Hong Kong Polytechnic UniversityC3  - Leeds Beckett UniversityC3  - Loughborough UniversityPU  - EMERALD GROUP PUBLISHING LTD
+PI  - Leeds
+PA  - Floor 5, Northspring 21-23 Wellington Street, Leeds, W YORKSHIRE, ENGLAND
+SN  - 0969-9988
+SN  - 1365-232X
+J9  - ENG CONSTR ARCHIT MA
+JI  - Eng. Constr. Archit. Manag.
+DA  - 2026 JAN 27
+PY  - 2026
+DO  - 10.1108/ECAM-10-2024-1454
+C6  - JAN 2026
+WE  - Science Citation Index Expanded (SCI-EXPANDED)WE  - Social Science Citation Index (SSCI)AN  - WOS:001670028800001
+N1  - Times Cited in Web of Science Core Collection:  0
+Total Times Cited:  0
+Cited Reference Count:  84
+ER  -
+
+TY  - JOUR
+AU  - Ibrahim, A
+AU  - Zayed, T
+AU  - Lafhaj, Z
+AU  - Maged, A
+AU  - Kineber, AF
+AU  - Yang, JC
+TI  - Bridging Theory and Prediction: A Hybrid SEM and Machine Learning Approach to Optimize Lean Construction for Megaproject Sustainability in China
+T2  - CORPORATE SOCIAL RESPONSIBILITY AND ENVIRONMENTAL MANAGEMENT
+LA  - English
+KW  - China
+KW  - gradient boosting
+KW  - lean construction practices
+KW  - machine learning
+KW  - megaprojects
+KW  - PLS-SEM
+KW  - SHAP
+KW  - sustainability
+KW  - PLS-SEM
+KW  - PERFORMANCE
+KW  - PROJECTS
+KW  - IMPLEMENTATION
+KW  - INDUSTRY
+KW  - SYSTEMS
+KW  - GREEN
+AB  - Construction megaprojects, large-scale, complex, and capital-intensive, are particularly prone to inefficiencies, cost overruns, delays, and environmental degradation due to fragmented workflows, stakeholder misalignment, and resource intensity. Lean Construction Practices (LCPs), with their focus on waste elimination, value stream optimization, and collaborative planning, offer a targeted response to these megaproject-specific challenges, directly supporting sustainability goals. However, empirical evidence on the systematic integration of LCPs into sustainable megaproject delivery, especially in emerging economies, remains sparse. This study addresses this gap by (1) quantifying the causal impact of LCPs on Overall Sustainable Success (OSS), defined as a tripartite construct encompassing environmental resilience (e.g., waste/energy reduction, pollution control), social inclusivity (e.g., worker safety, collaboration, equity), and economic efficiency (e.g., cost control, rework minimization, productivity gains), using PLS-SEM; and (2) identifying the most predictive LCPs for OSS using explainable Machine Learning (ML), with a focus on China, the world's largest megaproject market. Using survey data from 379 randomly sampled professionals engaged in megaprojects across Mainland China and Hong Kong, results confirm a strong LCP-OSS relationship (beta = 0.748), with Gradient Boosting achieving 82% accuracy and 88% ROC-AUC. Crucially, SHAP analysis is innovatively applied at both indicator and construct levels, enabling actionable prioritization of LCPs, a methodological advance for sustainability research. Top practices include Safety and Quality Assurance (22.2%), Customer Focus and Waste Elimination (20.8%), and Standardization and Process Transparency (18.8%). While contextually grounded in China, findings align with SDGs 9, 11, and 12, suggesting transferability to similar emerging economies. The framework provides policymakers and practitioners with evidence-based levers to integrate sustainability into megaproject delivery, without compromising efficiency or equity.
+AD  - Hong Kong Polytech Univ, Dept Bldg & Real Estate, Hung Hom, Hong Kong, Peoples R ChinaAD  - Benha Univ, Benha Fac Engn, Banha, EgyptAD  - Univ Lille, Lab Mecan Multiphys Multiechelle, LaMcube, UMR 9013,Cent Lille,CNRS, Lille, FranceAD  - Amer Univ Sharjah, Dept Ind Engn, Sharjah, U Arab EmiratesAD  - Cent Queensland Univ, Coll Project Management Built Environm Asset & Mai, Sch Engn & Technol, Melbourne, AustraliaC3  - Hong Kong Polytechnic UniversityC3  - Egyptian Knowledge Bank (EKB)C3  - Benha UniversityC3  - Centre National de la Recherche Scientifique (CNRS)C3  - Universite de LilleC3  - Centrale LilleC3  - American University of SharjahC3  - Central Queensland UniversityFU  - Hong Kong Polytechnic University (PolyU)
+FX  - <STRONG> </STRONG>The author would like to sincerely thank the Hong Kong Polytechnic University (PolyU) for funding this study. PolyU financing has advanced research and facilitated the advancements that underpin this review.
+PU  - WILEY
+PI  - HOBOKEN
+PA  - 111 RIVER ST, HOBOKEN 07030-5774, NJ USA
+SN  - 1535-3958
+SN  - 1535-3966
+J9  - CORP SOC RESP ENV MA
+JI  - Corp. Soc. Responsib. Environ. Manag.
+DA  - 2026 JAN 25
+PY  - 2026
+DO  - 10.1002/csr.70424
+C6  - JAN 2026
+WE  - Social Science Citation Index (SSCI)AN  - WOS:001668790200001
+N1  - Times Cited in Web of Science Core Collection:  0
+Total Times Cited:  0
+Cited Reference Count:  107
+ER  -
+
+TY  - JOUR
+AU  - Bousia, A
+TI  - The Use of Business Intelligence and Analytics in Electric Vehicle Technology: A Comprehensive Survey
+T2  - ELECTRONICS
+LA  - English
+KW  - business intelligence
+KW  - electric vehicles (EVs)
+KW  - electric vehicles charging
+KW  - decision model
+KW  - data mining
+KW  - CHARGING STATIONS
+KW  - HEALTH PREDICTION
+KW  - STATE
+KW  - PLACEMENT
+KW  - BATTERIES
+KW  - STANDARDS
+KW  - SYSTEMS
+KW  - HYBRID
+AB  - The emerging urbanization and the extensive increase of the transportation sector are responsible for the significant increase in carbon dioxide emissions. Therefore, replacing traditional cars with Electric Vehicles (EVs) is a promising solution, offering a clearer alternative. EVs are becoming more and more well-known and are being quickly used worldwide. However, the exponential rise in EV sales has also raised a number of issues, which are becoming important and demanding. These challenges include the need of driving security, the battery degradation, the inadequate infrastructure for charging EVs, and the uneven energy distribution. In order for EVs to reach their full potential, intelligent systems and innovative technologies need to be introduced in the field of EVs. This is where business intelligence (BI) can be employed, along with artificial intelligence (AI), data analytics, and machine learning. In this paper, we provide a comprehensive survey on the use of BI strategies in the EV transportation sector. We first introduce the EVs and charging station technologies. Then, research works on the application of BI and data analysis techniques in EV technology are reviewed to further understand the challenges and open issues for the research and industry community. Moreover, related works on accident analysis, battery health prediction, charging station analysis, intelligent infrastructure, locating charging stations analysis, and autonomous driving are investigated. This survey systematically reviews 75 peer-reviewed studies published between 2020 and 2025. Finally, we discuss the fundamental limitations and the future open challenges in the aforementioned topics.
+AD  - Univ Thessaly, Dept Business Adm, Larisa 41500, GreeceC3  - University of ThessalyPU  - MDPI
+PI  - BASEL
+PA  - MDPI AG, Grosspeteranlage 5, CH-4052 BASEL, SWITZERLAND
+SN  - 2079-9292
+J9  - ELECTRONICS-SWITZ
+JI  - Electronics
+DA  - JAN 14
+PY  - 2026
+VL  - 15
+IS  - 2
+C7  - 366
+DO  - 10.3390/electronics15020366
+WE  - Science Citation Index Expanded (SCI-EXPANDED)AN  - WOS:001670351600001
+N1  - Times Cited in Web of Science Core Collection:  0
+Total Times Cited:  0
+Cited Reference Count:  169
+ER  -
+
+TY  - JOUR
+AU  - Suppressa, F
+AU  - Dalmazzone, S
+AU  - Leombruni, R
+TI  - Measuring green jobs in Italy: A task-based approach
+T2  - JOURNAL OF CLEANER PRODUCTION
+LA  - English
+KW  - Green jobs
+KW  - Italian labor market
+KW  - Task-based measure
+KW  - Employment patterns
+KW  - EMPLOYMENT
+KW  - REFORMS
+AB  - The transition towards a green economy has made the identification and measurement of Green Jobs increasingly relevant for both researchers and policymakers. However, definitions remain fragmented, and cross-country measures are often inconsistent and poorly adapted to national contexts. This paper develops a new task-based measure of Green Jobs for the Italian labor market. Using the Italian Sample Survey on Professions (ICP), we identify 204 green-related tasks across 84 occupations and construct both continuous and binary indicators of occupational "greenness." The approach combines textual analysis and machine learning techniques to improve the accuracy of existing green measures, previously derived from U.S. occupation codes. These indicators are then merged with the Mandatory Communications dataset to examine the characteristics and labor market outcomes of Italian Green Workers. Results show that Italian Green Jobs are more frequent among male and low-educated workers, concentrated in manufacturing and southern regions, and display a higher incidence of temporary contracts. The association between our continuous greenness indicator and the likelihood of permanent employment is negative and statistically significant, even after several robustness checks. These findings highlight a paradox of the Italian green transition: while Green Jobs are central to environmental policy goals, they tend to be more precarious than other forms of employment. This calls for targeted labor market policies to ensure that the shift towards sustainability does not come at the expense of job stability.
+AD  - Univ Pisa, Dept Polit Sci, Via Serafini 3, I-56126 Pisa, ItalyAD  - Univ Torino, Dipartimento Econ & Stat Cognetti de Martiis, Lungo Dora Siena 100 A, I-10153 Turin, ItalyC3  - University of PisaC3  - University of TurinFU  - European NextGenerationEU [PE0000015, MUR 341/2022]
+FX  - We acknowledge a European NextGenerationEU funding through the PNRR project "Age-It-Ageing well in an ageing society", code PE0000015, MUR 341/2022 tender.
+PU  - ELSEVIER SCI LTD
+PI  - London
+PA  - 125 London Wall, London, ENGLAND
+SN  - 0959-6526
+SN  - 1879-1786
+J9  - J CLEAN PROD
+JI  - J. Clean Prod.
+DA  - JAN 14
+PY  - 2026
+VL  - 539
+C7  - 147404
+DO  - 10.1016/j.jclepro.2025.147404
+WE  - Science Citation Index Expanded (SCI-EXPANDED)AN  - WOS:001660058900001
+N1  - Times Cited in Web of Science Core Collection:  0
+Total Times Cited:  0
+Cited Reference Count:  57
+ER  -
+
+TY  - JOUR
+AU  - Ranjan, P
+AU  - Nandal, A
+AU  - Agarwal, S
+AU  - Kumar, R
+TI  - A Dive into Generative Adversarial Networks in the World of Hyperspectral Imaging: A Survey of the State of the Art
+T2  - REMOTE SENSING
+LA  - English
+KW  - Generative Adversarial Network
+KW  - hyperspectral imaging
+KW  - comprehensive review
+KW  - synthetic data
+KW  - data augmentation
+KW  - feature extraction
+KW  - GAN
+KW  - TRANSFORMER
+KW  - CLASSIFICATION
+AB  - Highlights A comprehensive review of Generative Adversarial Networks (GANs) in Hyperspectral Imaging (HSI), covering architectures, applications, challenges, and future directions. What are the main findings? GANs enhance HSI analysis: Integrating GANs into HSI improves data interpretation, which increases the practicality and usefulness of HSI across various industries. Identification of research gaps: The survey highlights critical gaps in hyperparameter tuning, architectural efficiency, and domain-specific applications of GANs in HSI. This provides researchers with clear directions for improvement. What are the implications of the main findings? Broader industry adoption: With improved analysis powered by GANs, HSI can be applied more effectively in real-world domains such as agriculture, healthcare, and environmental monitoring. Future research roadmap: By exposing gaps in GAN-HSI integration, the study acts as a foundation for future innovation, guiding researchers toward developing more efficient, robust, and domain-adapted models.Highlights A comprehensive review of Generative Adversarial Networks (GANs) in Hyperspectral Imaging (HSI), covering architectures, applications, challenges, and future directions. What are the main findings? GANs enhance HSI analysis: Integrating GANs into HSI improves data interpretation, which increases the practicality and usefulness of HSI across various industries. Identification of research gaps: The survey highlights critical gaps in hyperparameter tuning, architectural efficiency, and domain-specific applications of GANs in HSI. This provides researchers with clear directions for improvement. What are the implications of the main findings? Broader industry adoption: With improved analysis powered by GANs, HSI can be applied more effectively in real-world domains such as agriculture, healthcare, and environmental monitoring. Future research roadmap: By exposing gaps in GAN-HSI integration, the study acts as a foundation for future innovation, guiding researchers toward developing more efficient, robust, and domain-adapted models.Highlights A comprehensive review of Generative Adversarial Networks (GANs) in Hyperspectral Imaging (HSI), covering architectures, applications, challenges, and future directions. What are the main findings? GANs enhance HSI analysis: Integrating GANs into HSI improves data interpretation, which increases the practicality and usefulness of HSI across various industries. Identification of research gaps: The survey highlights critical gaps in hyperparameter tuning, architectural efficiency, and domain-specific applications of GANs in HSI. This provides researchers with clear directions for improvement. What are the implications of the main findings? Broader industry adoption: With improved analysis powered by GANs, HSI can be applied more effectively in real-world domains such as agriculture, healthcare, and environmental monitoring. Future research roadmap: By exposing gaps in GAN-HSI integration, the study acts as a foundation for future innovation, guiding researchers toward developing more efficient, robust, and domain-adapted models.Abstract Hyperspectral imaging (HSI) captures rich spectral information across a wide range of wavelengths, enabling advanced applications in remote sensing, environmental monitoring, medical diagnosis, and related domains. However, the high dimensionality, spectral variability, and inherent noise of HSI data present significant challenges for efficient processing and reliable analysis.
+   In recent years, Generative Adversarial Networks (GANs) have emerged as transformative deep learning paradigms, demonstrating strong capabilities in data generation, augmentation, feature learning, and representation modeling. Consequently, the integration of GANs into HSI analysis has gained substantial research attention, resulting in a diverse range of architectures tailored to HSI-specific tasks. Despite these advances, existing survey studies often focus on isolated problems or individual application domains, limiting a comprehensive understanding of the broader GAN-HSI landscape. To address this gap, this paper presents a comprehensive review of GAN-based hyperspectral imaging research. The review systematically examines the evolution of GAN-HSI integration, categorizes representative GAN architectures, analyzes domain-specific applications, and discusses commonly adopted hyperparameter tuning strategies. Furthermore, key research challenges and open issues are identified, and promising future research directions are outlined. This synergy addresses critical hyperspectral data analysis challenges while unlocking transformative innovations across multiple sectors.
+AD  - Murdoch Univ Dubai, Sch IT, POB 500700, Dubai, U Arab EmiratesAD  - Natl Inst Technol, Dept Comp Sci & Engn, Delhi 110036, IndiaAD  - Yeungnam Univ, Sch Comp Sci & Engn, Gyongsan 38541, South KoreaAD  - Delhi Technol Univ, Dept Comp Sci & Engn, Delhi 110042, IndiaC3  - National Institute of Technology (NIT System)C3  - National Institute of Technology DelhiC3  - Yeungnam UniversityC3  - Delhi Technological UniversityPU  - MDPI
+PI  - BASEL
+PA  - MDPI AG, Grosspeteranlage 5, CH-4052 BASEL, SWITZERLAND
+SN  - 2072-4292
+J9  - REMOTE SENS-BASEL
+JI  - Remote Sens.
+DA  - JAN 6
+PY  - 2026
+VL  - 18
+IS  - 2
+C7  - 196
+DO  - 10.3390/rs18020196
+WE  - Science Citation Index Expanded (SCI-EXPANDED)AN  - WOS:001671490600001
+N1  - Times Cited in Web of Science Core Collection:  0
+Total Times Cited:  0
+Cited Reference Count:  137
+ER  -
+
+TY  - JOUR
+AU  - Maleki, MS
+AU  - Sahebi, L
+AU  - Shahvari, Z
+AU  - Samadi, S
+TI  - Attitudes of the Iranian Public Toward the Clinical Use of Artificial Intelligence in Medicine: A Cross-Sectional Survey
+T2  - PATIENT PREFERENCE AND ADHERENCE
+LA  - English
+KW  - machine learning
+KW  - algorithmic aversion
+KW  - human oversight
+KW  - patient trust
+KW  - physician empathy
+KW  - human-AI collaboration
+AB  - Purpose: The integration of Artificial Intelligence (AI) into healthcare is a global trend, yet its success hinges on public acceptance. This study aimed to provide one of the first comprehensive assessments of awareness, trust, and preferences regarding the clinical use of medical AI among a sample of Iranian hospital visitors and to identify the key predictors shaping these views to inform national digital health policy.
+   Patients and Methods: A descriptive-analytical, cross-sectional survey was conducted between August 2024 and March 2025 at the Imam Khomeini Hospital Complex in Tehran, Iran. A validated questionnaire was administered to a convenience sample of 388 hospital visitors (inpatients, outpatients, and their companions). Data were analyzed using descriptive statistics and multivariate logistic regression.
+   Results: Of 388 participants, 53.6% (208/388) had heard of medical AI, yet only 2.6% claimed full knowledge. A phenomenon regarding conflicting attitudes, which we term the "trust-preference paradox", was observed: while similar to 87% expressed conditional trust in AI's diagnostic and therapeutic capabilities, a significant majority preferred human physicians in disagreement scenarios (Diagnosis: 66.2%; Treatment: 66.8%), primarily due to the desire for personalized care. Preference for AI diagnosis was significantly associated with being male (Odds Ratio [OR] 2.06), having a non-medical/computer science occupation (OR 2.64), and prior AI awareness (OR 1.72). The top perceived advantage was accuracy (46.1%), while the main drawback was lack of empathy (60.1%). A collaborative model where AI assists physicians was favored by 70.6%.
+   Conclusion: Participants demonstrated high trust in AI's technical potential but strongly preferred human oversight in high-stakes decisions. Successful AI integration in Iran requires "human-in-the-loop" collaborative models and targeted education to bridge the gap between technical trust and clinical preference.
+   Plain Language Summary: Why was the study done? Physicians and hospitals are increasingly using Artificial Intelligence (AI) to help diagnose and treat patients, but public trust is essential for success. We conducted this study to understand the opinions and trust levels regarding medical AI among patients and visitors at a large teaching hospital in Tehran.
+   What did the researchers do and find? We surveyed 388 adults about their knowledge and trust in AI. We found that while a large majority (about 87%) trusted AI's ability to analyze medical information, most still preferred a human doctor to make the final decision. This was especially true if the AI and the doctor disagreed. Participants emphasized that they value the empathy and personal connection provided by human doctors, which they felt AI lacks.
+   What do these results mean? The results suggest that patients accept AI as a helpful tool but do not want it to replace doctors. They prefer a system where doctors and computers work together, with the doctor remaining in charge. Keeping a human doctor involved in important decisions is crucial to maintaining patient trust.
+AD  - Univ Tehran Med Sci, Sch Med, Tehran, IranAD  - Univ Tehran Med Sci, Family Hlth Res Inst, Fetal & Neonatal Res Ctr, Maternal, Tehran, IranAD  - Islamic Azad Univ, Dept Nursing & Midwifery, Gachsaran Branch, Gachsaran, IranAD  - Univ Tehran Med Sci, Imam Khomeini Hosp Complex, Sleep Breathing Disorders Res Ctr, Tehran, IranAD  - Univ Tehran Med Sci, Anesthesia Crit Care & Pain Management Res Ctr, Tehran, IranAD  - Univ Tehran Med Sci, Imam Khomeini Hosp Complex, Sleep Breathing Disorders Res Ctr, Keshavarz Blvd, Tehran 1419733141, IranC3  - Tehran University of Medical SciencesC3  - Tehran University of Medical SciencesC3  - Islamic Azad UniversityC3  - Tehran University of Medical SciencesC3  - Tehran University of Medical SciencesC3  - Tehran University of Medical SciencesPU  - DOVE MEDICAL PRESS LTD
+PI  - ALBANY
+PA  - PO BOX 300-008, ALBANY, AUCKLAND 0752, NEW ZEALAND
+SN  - 1177-889X
+J9  - PATIENT PREFER ADHER
+JI  - Patient Prefer. Adherence
+PY  - 2026
+VL  - 20
+C7  - S563494
+DO  - 10.2147/PPA.S563494
+WE  - Science Citation Index Expanded (SCI-EXPANDED)AN  - WOS:001663976700001
+N1  - Times Cited in Web of Science Core Collection:  0
+Total Times Cited:  0
+Cited Reference Count:  23
+ER  -
+
+TY  - JOUR
+AU  - Moriwaki, K
+AU  - Jun, RL
+AU  - Osato, K
+AU  - Yoshida, N
+TI  - CosmoGLINT: cosmological generative model for line intensity mapping with transformer
+T2  - MONTHLY NOTICES OF THE ROYAL ASTRONOMICAL SOCIETY
+LA  - English
+KW  - software: machine learning
+KW  - galaxies: star formation
+KW  - large-scale structure of Universe
+KW  - HALO OCCUPATION DISTRIBUTION
+KW  - C II EMISSION
+KW  - ILLUSTRISTNG SIMULATIONS
+KW  - DARK-MATTER
+KW  - GALACTIC CONFORMITY
+KW  - STAR-FORMATION
+KW  - GALAXY FORMATION
+KW  - PHYSICAL ORIGIN
+KW  - CONNECTION
+KW  - MASS
+AB  - Modelling star-forming galaxies is crucial for upcoming observations of large-scale matter and galaxy distributions with galaxy redshift surveys and line intensity mapping (LIM). We introduce CosmoGLINT (Cosmological Generative model for Line INtensity mapping with Transformer), a Transformer-based generative framework designed to create realistic galaxy populations from dark matter (DM)-only simulations. CosmoGLINT autoregressively generates sequences of galaxy properties - including star formation rate, distance to the halo centre, and radial and tangential velocities relative to the halo - conditioned on halo mass. Trained on the IllustrisTNG hydrodynamic simulation, the model reproduces key statistical properties of the original data, including the voxel intensity distribution and the power spectrum both in real and redshift space. It can efficiently generate a number of different realizations of the designated galaxy populations, enabling the creation of mock LIM/redshift survey catalogues from large halo catalogues produced by fast DM-only simulations. We show that our model, trained at multiple redshifts, can be applied to DM halo light-cone data to generate a realistic mock galaxy light-cone that incorporates the redshift evolution of the galaxy population. The mock catalogues can be readily used to derive statistical quantities and to develop data analysis pipelines for ongoing and future wide-field surveys.
+AD  - Univ Tokyo, Res Ctr Early Universe, Grad Sch Sci, 7-3-1 Hongo, Tokyo 1130033, JapanAD  - Univ Tokyo, Grad Sch Sci, Dept Phys, 7-3-1 Hongo, Tokyo 1330033, JapanAD  - RIKEN Ctr Adv Intelligence Project, 1-4-1 Nihonbashi, Tokyo 1030027, JapanAD  - Chiba Univ, Ctr Frontier Sci, 1-33 Yayoi Cho,Inage Ku, Chiba 2638522, JapanAD  - Chiba Univ, Grad Sch Sci, Dept Phys, 1-33 Yayoi Cho,Inage Ku, Chiba 2638522, JapanAD  - Univ Tokyo, Inst Adv Study, Kavli Inst Phys & Math Universe, 5-1-5 Kashiwanoha, Kashiwa, Chiba 2778583, JapanC3  - University of TokyoC3  - University of TokyoC3  - RIKENC3  - Chiba UniversityC3  - Chiba UniversityC3  - University of TokyoFU  - Japan Society for the Promotion of Science (JSPS) KAKENHI [JP23K03446, JP23K20035, JP24H00004, JP24H00215, JP25K17380, JP25H01513, JP25H00662, JP24H00221]; Ministry of Education, Culture, Sports, Science and Technology (MEXT) as 'Program for Promoting Research on the Supercomputer Fugaku' [JPMXP1020230406, hp230204, hp240219, hp250226]
+FX  - The authors acknowledge financial support from Japan Society for the Promotion of Science (JSPS) KAKENHI Grant Numbers JP23K03446, JP23K20035, JP24H00004 (KM), JP24H00215, JP25K17380, JP25H01513, JP25H00662 (KO), and JP24H00221 (NY). This work was supported by Ministry of Education, Culture, Sports, Science and Technology (MEXT) as 'Program for Promoting Research on the Supercomputer Fugaku' (Structure and Evolution of the Universe Unraveled by Fusion of Simulation and AI; Grant Number JPMXP1020230406; Project ID: hp230204, hp240219, hp250226).
+PU  - OXFORD UNIV PRESS
+PI  - OXFORD
+PA  - GREAT CLARENDON ST, OXFORD OX2 6DP, ENGLAND
+SN  - 0035-8711
+SN  - 1365-2966
+J9  - MON NOT R ASTRON SOC
+JI  - Mon. Not. Roy. Astron. Soc.
+DA  - JAN
+PY  - 2026
+VL  - 545
+IS  - 3
+C7  - staf2124
+DO  - 10.1093/mnras/staf2124
+WE  - Science Citation Index Expanded (SCI-EXPANDED)AN  - WOS:001649713800001
+N1  - Times Cited in Web of Science Core Collection:  0
+Total Times Cited:  0
+Cited Reference Count:  102
+ER  -
+
+TY  - JOUR
+AU  - Selvaraj, L
+AU  - Gururajan, A
+AU  - Manickam, BK
+AU  - Subbaiyan, AK
+TI  - Machine learning-based analysis of factors influencing bus station traffic management in India
+T2  - CANADIAN JOURNAL OF CIVIL ENGINEERING
+LA  - English
+KW  - bus station
+KW  - land use
+KW  - bus bay
+KW  - layout design
+KW  - pedestrian infrastructure
+KW  - INDUSTRY 4.0
+AB  - Rapid urbanization and increased private vehicle ownership have significantly intensified traffic congestion in Indian cities. In response, the Indian government has implemented various initiatives to strengthen public transportation, with buses constituting the predominant mode of urban transit. Consequently, the need to upgrade bus terminal infrastructure has become critical to support growing passenger volume and operational complexity. This study aims to prioritize the key factors influencing the functional performance of bus stations. A preliminary site investigation was conducted to assess existing infrastructural conditions, followed by comprehensive data collection through traffic surveys and structured questionnaires. Statistical analyses including Chi-squared test, validated the survey data. Integrated principal component and multi criteria decision analysis was employed to rank influential factors. Item rate analysis determined cost-sensitive components. Cluster analysis was used to assess interrelationships among variables. The results offer a robust, data-driven framework for optimizing future bus terminal planning and design with the proposed layout.
+AD  - KPR Inst Engn & Technol, Coimbatore 641407, Tamil Nadu, IndiaAD  - Kongu Engn Coll, Mech Engn, Erode 638052, Tamilnadu, IndiaAD  - Meenakshi Coll Engn, Civil Engn, KK Nagar, Chennai 600078, Tamilnadu, IndiaC3  - Kongu Engineering CollegePU  - CANADIAN SCIENCE PUBLISHING
+PI  - OTTAWA
+PA  - 123 Slater Street, Suite 610, OTTAWA, ON K1P 5H2, CANADA
+SN  - 0315-1468
+SN  - 1208-6029
+J9  - CAN J CIVIL ENG
+JI  - Can. J. Civ. Eng.
+PY  - 2026
+VL  - 53
+C7  - 0174
+DO  - 10.1139/cjce-2025-0174
+WE  - Science Citation Index Expanded (SCI-EXPANDED)AN  - WOS:001666344600001
+N1  - Times Cited in Web of Science Core Collection:  0
+Total Times Cited:  0
+Cited Reference Count:  37
+ER  -
+
+TY  - JOUR
+AU  - Wang, XY
+AU  - Ji, JZ
+TI  - Revolution in Automated Architecture Engineering: A Comprehensive Survey on Vertical Domain Demand-Driven NAS Methods
+T2  - IEEE TRANSACTIONS ON AUTOMATION SCIENCE AND ENGINEERING
+LA  - English
+KW  - Reviews
+KW  - Surveys
+KW  - Neural architecture search
+KW  - Search problems
+KW  - Computer architecture
+KW  - Artificial neural networks
+KW  - Medical services
+KW  - Reinforcement learning
+KW  - Deep learning
+KW  - Remote sensing
+KW  - Demand-driven
+KW  - neural architecture search
+KW  - AutoDL
+KW  - deep learning
+KW  - NEURAL-NETWORK
+KW  - SEARCH
+KW  - CLASSIFICATION
+KW  - CNN
+AB  - With the progression of Neural Architecture Search (NAS), it has increasingly caught the attention of researchers from various domains. Up to now, researchers have developed numerous Demand-Driven NAS (DD-NAS) methods to alleviate difficulties of constructing deep neural network architectures across various practical applications. However, there lacks a review that summarizes the technical characteristics of NAS methods from a demand-driven perspective. Thus, in this paper, we provide a comprehensive survey of the latest advancements in DD-NAS. Specifically, first of all, we outline the fundamental process and core components of DD-NAS. Then, we summarize the unique characteristics of DD-NAS methods used in four main domains. Following this, we take representative DD-NAS methods based on electroencephalogram as an example to conduct empirical researches. Finally, we explore potential directions for the future development of DD-NAS. Note to Practitioners-This paper aims to provide a comprehensive survey of Neural Architecture Search (NAS) methods for interdisciplinary practitioners outside the artificial intelligence field. Specifically, our survey delves into practical applications and potential value of NAS methodologies across four critical inter-disciplinary domains: smart industry, intelligent transportation systems, remote sensing, and smart healthcare. While constrained by computational resources and article length limitations, our analysis primarily focuses on NAS implementations in these selected domains. Nevertheless, the proposed framework and summarized insights offer valuable References for professionals in various other vertical fields, including smart agriculture and environmental monitoring. Future work will expand the research scope to incorporate NAS applications in both emerging and traditional domains, thereby more comprehensively demonstrating its universality and practical utility.
+AD  - Beijing Univ Technol, Beijing Artificial Intelligence Inst, Fac Informat Technol, Beijing Key Lab Multimedia & Intelligent Software, Beijing 100124, Peoples R ChinaC3  - Beijing University of TechnologyFU  - NSFC Research Program [62276010]; Research and Development Program of Beijing Municipal Education Commission [KZ202210005009]
+FX  - This work was supported in part by NSFC Research Program under Grant 62276010 and in part by the Research and Development Program of Beijing Municipal Education Commission under Grant KZ202210005009.
+PU  - IEEE-INST ELECTRICAL ELECTRONICS ENGINEERS INC
+PI  - PISCATAWAY
+PA  - 445 HOES LANE, PISCATAWAY, NJ 08855-4141 USA
+SN  - 1545-5955
+SN  - 1558-3783
+J9  - IEEE T AUTOM SCI ENG
+JI  - IEEE Trans. Autom. Sci. Eng.
+PY  - 2026
+VL  - 23
+SP  - 1842
+EP  - 1864
+DO  - 10.1109/TASE.2025.3649005
+WE  - Science Citation Index Expanded (SCI-EXPANDED)AN  - WOS:001663362600003
+N1  - Times Cited in Web of Science Core Collection:  0
+Total Times Cited:  0
+Cited Reference Count:  176
+ER  -
+
+TY  - JOUR
+AU  - Yousefimehr, B
+AU  - Ghatee, M
+AU  - Ghaffari, S
+AU  - Arasteh, A
+AU  - Ahmadi, P
+AU  - Ghane, A
+AU  - Esnaasharieh, S
+TI  - A systematic review for 2019-2025 on deep learning models in the film production industry
+T2  - ENTERTAINMENT COMPUTING
+LA  - English
+KW  - Artificial intelligence
+KW  - Film industry
+KW  - Video generation
+KW  - Screenwriting
+KW  - Video editing
+KW  - Music generation
+KW  - VIDEO GENERATION
+KW  - MUSIC GENERATION
+KW  - TEXT
+KW  - IMAGE
+AB  - The integration of artificial intelligence (AI) into film production is fundamentally reshaping cinematic creation. This survey presents a systematic review of deep learning applications in the film industry from 2019 to 2025, analyzing their impact across four core pillars: Scriptwriting, Video Generation, Video Editing, and Music Generation. To overcome the limitations of subjective qualitative reviews, we introduce the Intelligent Multi-Dimensional Paper Scoring Framework (IMPSF), a novel methodology for the quantitative and reproducible evaluation of scholarly literature. The IMPSF employs a multi-agent system to assess papers across four key dimensions: Technical Innovation, Empirical Rigor, Cinematic Applicability, and Methodological Soundness. A critical innovation is our empirically grounded weighting scheme for these dimensions, optimized on a targeted subset of the S2ORC corpus to reflect performance in cinematic AI workflows. Applied to a curated corpus of 129 publications, the IMPSF identifies and ranks the most significant contributions. Our analysis reveals that AI serves primarily as a powerful augmentative tool, with substantial advancements in each domain driven by technologies like diffusion models, large language models (LLMs), and generative adversarial networks (GANs). This review not only synthesizes the current state of the art but also provides a structured taxonomy, a research roadmap, and a foundational framework for future innovation at the intersection of computational creativity
+AD  - Amirkabir Univ Technol, Fac Math & Comp Sci, Dept Comp Sci, Tehran, IranAD  - Yazd Univ, Dept Comp Engn, Yazd, IranC3  - Amirkabir University of TechnologyC3  - University of YazdFU  - Iran National Science Foundation (INSF) [4038612]
+FX  - This work is based upon research funded by Iran National Science Foundation (INSF) https://insf.org/en under project No 4038612.
+PU  - ELSEVIER SCI LTD
+PI  - London
+PA  - 125 London Wall, London, ENGLAND
+SN  - 1875-9521
+SN  - 1875-953X
+J9  - ENTERTAIN COMPUT
+JI  - Entertain. Comput.
+DA  - JAN
+PY  - 2026
+VL  - 56
+C7  - 101076
+DO  - 10.1016/j.entcom.2025.101076
+WE  - Science Citation Index Expanded (SCI-EXPANDED)AN  - WOS:001659329300001
+N1  - Times Cited in Web of Science Core Collection:  0
+Total Times Cited:  0
+Cited Reference Count:  132
+ER  -
+
+TY  - JOUR
+AU  - Zhang, ZB
+AU  - Wang, CR
+AU  - Jing, SZ
+AU  - Wang, WH
+TI  - A survey on generative methods in automotive aerodynamic shape optimization
+T2  - JOURNAL OF COMPUTATIONAL DESIGN AND ENGINEERING
+LA  - English
+KW  - aerodynamic shape optimization
+KW  - deep learning
+KW  - generative methods
+KW  - variational autoencoder
+KW  - automotive drag reduction
+KW  - PROPER-ORTHOGONAL-DECOMPOSITION
+KW  - DESIGN
+KW  - FLOWS
+KW  - REPRESENTATION
+KW  - SILHOUETTES
+AB  - Electric motors surpass internal combustion gasoline engines in energy efficiency. While air resistance is less critical for internal combustion vehicles, it significantly impacts electric vehicle energy consumption. However, existing aerodynamic drag-reduction technologies have not kept pace with the rapidly advancing electric vehicle industry. Over the past 5 years, notable advancements have been made in high-dimensional aerodynamic shape optimization, particularly as deep neural network-based methods have transitioned from laboratory research to practical engineering applications in the aeronautical sector. This paper explores cutting-edge technologies and potential applications within the automotive industry. The study focuses on two main aspects of generative form-optimization methodologies: shape representation and shape-generation techniques. Shape representation methods are categorized and analyzed from three perspectives: dimensionality reduction, mesh-based approaches, and point-cloud-based methods. Additionally, generative methodologies are examined, with an emphasis on variational autoencoders, generative adversarial networks, and deep learning architectures that incorporate attention mechanisms. This review provides a comprehensive overview of current and emerging artificial intelligence-based optimization strategies for reducing aerodynamic drag in vehicle design.
+AD  - Zhengzhou Univ, Sch Mech & Power Engn, Sci Ave, Zhengzhou 450001, Peoples R ChinaC3  - Zhengzhou UniversityFU  - National Natural Science Foundation of China [12272354]
+FX  - This research was supported by the National Natural Science Foundation of China (grant number 12272354).
+PU  - OXFORD UNIV PRESS
+PI  - OXFORD
+PA  - GREAT CLARENDON ST, OXFORD OX2 6DP, ENGLAND
+SN  - 2288-5048
+J9  - J COMPUT DES ENG
+JI  - J. Comput. Des. Eng.
+DA  - JAN
+PY  - 2026
+VL  - 13
+IS  - 1
+SP  - 538
+EP  - 565
+DO  - 10.1093/jcde/qwaf145
+WE  - Science Citation Index Expanded (SCI-EXPANDED)AN  - WOS:001669808400001
+N1  - Times Cited in Web of Science Core Collection:  0
+Total Times Cited:  0
+Cited Reference Count:  239
+ER  -
+
