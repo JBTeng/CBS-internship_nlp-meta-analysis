@@ -23,6 +23,14 @@ dist/
 # ===========================
 # 4. [CRITICAL] Data Security & Privacy (CBS Compliance)
 # ===========================
+# Ignore specific large or sensitive file types everywhere
+*.csv
+*.xlsx
+*.xls
+*.irs
+*.pdf
+*.h5
+
 # Ignore all data directory contents to prevent leakage but not the first sub folder
 data/
 !data/*/
@@ -30,15 +38,10 @@ data/
 !data/README.md
 # Exception: Keep dummy data/demos for reproducibility 
 !data/dummy/
+!data/dummy/**
 # Exception: make the subfile push-able
 !data/**/.gitkeep
 
-# Ignore specific large or sensitive file types everywhere
-*.csv
-*.xlsx
-*.xls
-*.pdf
-*.h5
 
 # ===========================
 # 5. Environment Variables & Secrets
