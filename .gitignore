@@ -31,6 +31,7 @@ dist/
 *.pdf
 *.h5
 *.ris
+*.enw
 # Ignore all data directory contents to prevent leakage but not the first sub folder
 data/*
 !data/*/

@@ -2,26 +2,15 @@ import pandas as pd
 import rispy
 import glob
 import os
+import re
 
-# ================= 0. Configuration / 环境配置 =================
-
-# 获取当前脚本所在的目录
+#================= 0. Configuration / 配置 =================
 current_script_dir = os.path.dirname(os.path.abspath(__file__))
+# Input directory containing raw files / 原始文件输入目录
+raw_dir = os.path.join(current_script_dir, '../data/raw')
+# Output file path / 输出文件路径
+output_file = os.path.join(current_script_dir, '../data/processed/preliminary_merged_for_asreview.ris')
 
-# 定义数据处理目录 (假设在脚本目录的上一级的 data/processed)
-processed_dir = os.path.abspath(os.path.join(current_script_dir, '../data/processed'))
-
-# 输入文件：刚才生成的合并文件
-input_file = os.path.join(processed_dir, 'preliminary_merged_for_asreview.ris')
-
-# 输出文件：最终给 ASReview 的完美文件
-output_file = os.path.join(processed_dir, 'SMART_DEDUPLICATED_FINAL.ris')
-
-# 打印一下确认路径是否正确
-print(f"Reading from: {input_file}")
-print(f"Saving to: {output_file}")
-
-# ================= 1. EndNote Smart Parser / 智能 EndNote 解析器 =================
 # ================= 1. EndNote Parser / EndNote (.enw) 解析器 =================
 def parse_enw(file_path):
     """
