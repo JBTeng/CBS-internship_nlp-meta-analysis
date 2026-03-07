@@ -32,6 +32,8 @@ dist/
 *.h5
 *.ris
 *.enw
+*.bib
+*.txt
 # Ignore all data directory contents to prevent leakage but not the first sub folder
 data/*
 !data/*/

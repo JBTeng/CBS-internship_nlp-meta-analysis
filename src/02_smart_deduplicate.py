@@ -1,3 +1,4 @@
+
 import rispy
 import pandas as pd
 from rapidfuzz import fuzz
@@ -5,9 +6,9 @@ import os
 
 # ================= Configuration / 配置 =================
 # Input file (Result from script 01) / 输入文件（脚本 01 的结果）
-input_file = os.path.join(os.path.dirname(__file__), '../data/processed/preliminary_merged_for_asreview.ris')
+input_file = os.path.join(os.path.dirname(__file__), '../data/processed/01_preliminary_merged.ris')
 # Final Output file for ASReview / 最终输出给 ASReview 的文件
-output_file = os.path.join(os.path.dirname(__file__), '../data/processed/SMART_DEDUPLICATED_FINAL.ris')
+output_file = os.path.join(os.path.dirname(__file__), '../data/processed/02_SMART_DEDUPLICATED_FINAL.ris')
 
 print(f"🚀 Starting Deduplication / 开始去重: {os.path.basename(input_file)}...")
 
@@ -159,4 +160,4 @@ with open(output_file, 'w', encoding='utf-8') as f:
         f.write("ER  - \n\n")
 
 print(f"✅ Final File Generated / 最终文件已生成: {output_file}")
-print("🎉 Ready for ASReview! / 可以上传到 ASReview 了！")
+print("🎉 please run 03_missing_checking to checking missing values in the final file before importing to ASReview!")
