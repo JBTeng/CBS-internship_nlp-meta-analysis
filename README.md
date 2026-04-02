@@ -49,7 +49,7 @@ pip install pandas rispy rapidfuzz biopython bibtexparser requests openpyxl
 ```
 
 **R Dependencies:**
-Ensure R is installed with the `metafor` and `httpgd` packages.
+Ensure R is installed with the `metafor` and `httpgd` packages.In VS Code, install the Quarto and R extensions for the best experience.
 ```R
 install.packages("metafor")
 ```
@@ -64,12 +64,12 @@ This project strictly follows the **PRISMA** workflow, integrating **Human-in-th
 3. **Quality Audit (`03`)**: Scan for missing titles/abstracts. A "patch file" is generated in `data/intermediate/`.
 4. **Manual Imputation**: 
    * Copy the patch to `data/processed/` and rename to `03_manually_updated.ris`.
-   * Manually fill in the missing fields (Title/Abstract/DOI).
+   * Manually fill in the `[MISSING]` tags (Title/Abstract/DOI).
 5. **Reconcile & Second Deduplication (`04`)**: The script merges your fixes and re-runs deduplication, as new metadata may reveal previously hidden duplicates.
 
 ### **Step 2: ASReview & Eligibility Screening**
 1. Import `04_FINAL_MERGED_DEDUPLICATED.ris` into **ASReview LAB**.
-2. Perform Active Learning screening to identify relevant studies.
+2. Perform Active Learning screening to identify relevant records.
 3. Conduct **Full-text Retrieval** and **Eligibility Assessment** based on the PRISMA flow.
 
 ### **Step 3: Data Extraction (`05`)**
