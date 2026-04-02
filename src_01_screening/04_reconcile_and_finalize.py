@@ -14,7 +14,7 @@ path_02_master = os.path.join(current_script_dir, '../data/intermediate/02_SMART
 path_03_original = os.path.join(current_script_dir, '../data/intermediate/03_incomplete_records_for_manual_fix.ris')
 
 # 3. User Fixed File (In Processed folder) / 用户修复后的文件
-# ⚠️ Please ensure your fixed file is named '03_fixed.ris'
+# ⚠️ Please ensure your fixed file is named '03_manually_updated.ris'
 path_03_fixed = os.path.join(current_script_dir, '../data/processed/03_manually_updated.ris')
 
 # 4. Final Output / 最终输出
