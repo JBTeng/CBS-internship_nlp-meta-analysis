@@ -60,7 +60,7 @@ This project strictly follows the **PRISMA** workflow, integrating **Human-in-th
 
 ### **Step 1: Data Pre-processing (The 01-04 Workflow)**
 A robust pipeline to ensure data integrity before Active Learning.
-1. **Merge & Standardize(`01`)**: Consolidate ACM, PubMed, and WoS exports into a standardized format.
+1. **Merge & Standardize(`01`)**: Consolidate ACM, PubMed, and WoS exports into a standardized format (`.ris`).
 2. **Initial Deduplication (`02`)**: Hierarchical matching (DOI -> Exact Title -> Fuzzy Title).
 3. **Quality Audit (`03`)**: Scan for missing titles/abstracts. A "patch file" is generated in `data/intermediate/`.
 4. **Manual Imputation**: 
