@@ -1,55 +1,68 @@
 # ===========================
-# 1. System Files (Keep repo clean for Windows/Linux users)
+# 1. System Files
 # ===========================
 .DS_Store
 .AppleDouble
 .LSOverride
+Thumbs.db
 
 # ===========================
 # 2. Python Cache & Build Artifacts
 # ===========================
 __pycache__/
-*.pyc
-*.pyo
+*.py[cod]
+*$py.class
 build/
 dist/
 *.egg-info/
+.venv/
+venv/
+env/
 
 # ===========================
-# 3. Jupyter Notebook Checkpoints
+# 3. Jupyter & Quarto (Critical for Phase 4)
 # ===========================
 .ipynb_checkpoints/
+.quarto/
+_site/
+*_files/
+*.html
+*.pdf
+*.docx
 
 # ===========================
-# 4. [CRITICAL] Data Security & Privacy (CBS Compliance)
+# 4. R Specific
 # ===========================
-# Ignore specific large or sensitive file types everywhere
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+
+# ===========================
+# 5. [CRITICAL] Data Security (CBS Compliance)
+# ===========================
+# Global ignore for data types
 *.csv
 *.xlsx
 *.xls
 *.irs
-*.pdf
-*.h5
 *.ris
 *.enw
 *.bib
 *.txt
-# Ignore all data directory contents to prevent leakage but not the first sub folder
+*.h5
+
+# Ignore all data directory contents
 data/*
 !data/*/
-# Exception: Keep the README to maintain folder structure
+
+# Exceptions: Keep Documentation & Demos
 !data/README.md
-# Exception: Keep dummy data/demos for reproducibility 
 !data/dummy/
 !data/dummy/**
-# Exception: make the subfile push-able
 !data/**/.gitkeep
 
-
 # ===========================
-# 5. Environment Variables & Secrets
+# 6. Secrets
 # ===========================
 .env
-.venv
-env/
-venv/
