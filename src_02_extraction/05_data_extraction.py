@@ -20,7 +20,8 @@ os.makedirs(PDF_DIR, exist_ok=True)
 # ==========================================
 # --- 🔑 Gemini API 配置 ---
 # ==========================================
-API_KEY = "AIzaSyBmnrA1fFPIhBZ6JWZ8Hd57i4duxOqbNCQ"
+# replace your API Key from  Google AI Studio 
+API_KEY = "YOUR_GEMINI_API_KEY"
 client = genai.Client(api_key=API_KEY)
 
 # ==========================================
