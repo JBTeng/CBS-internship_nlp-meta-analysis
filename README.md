@@ -76,11 +76,11 @@ A robust pipeline to ensure data integrity before Active Learning.
 3. Conduct **Full-text Retrieval** and **Eligibility Assessment** based on the PRISMA flow.
 
 ### **Step 3: Data Extraction (`05`)**
-Run the interactive CLI tool to extract effect sizes and study characteristics:
+Automated PDF Data Extraction of effect sizes and study characteristics via LLM :
 ```bash
 python src_02_extraction/05_data_extraction.py
 ```
-*Note: This script uses the Crossref API to auto-fill author and year based on DOI.*
+*Note: This script uses the Gemini API and Gemini api key is required.*
 
 ### **Step 4: Meta-Analysis (`06`)**
 Use the Quarto document in `src_03_meta_analysis/` to run the 3-level meta-analysis, investigate heterogeneity, and generate forest plots.
