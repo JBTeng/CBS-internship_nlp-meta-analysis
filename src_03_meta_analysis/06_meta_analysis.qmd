@@ -1,0 +1,59 @@
+
+## 📂 1. Environment Setup & Data Ingestion
+
+First, we need to load the required library (`metafor`) and read the processed data extracted from Phase 2.
+
+```{r}
+#| label: setup-and-load
+# Install readxl if you haven't: install.packages("readxl")
+library(metafor)
+library(readxl)
+
+# Define the relative path to your processed data
+# Since this file is inside 'src_03_meta_analysis/', we go up one level to find 'data/'
+data_path <- "../data/processed/05_Data_Extraction_for_R.xlsx"
+
+print(paste("Looking for data at:", data_path))
+```
+
+## 📊 2. Data Preview
+
+Let's read the Excel sheet and take a look at the column structures.
+*(Uncomment the lines below once your Excel file has data)*
+
+```{r}
+#| label: preview-data
+# my_data <- read_excel(data_path)
+# head(my_data)
+# str(my_data)
+
+```
+
+## 🧠 3. Three-Level Meta-Analysis Modeling
+
+We will use the `rma.mv` function from the `metafor` package to fit our three-level random-effects model. This accounts for the hierarchical structure (e.g., multiple effect sizes extracted from the same study).
+
+```{r}
+#| label: meta-model
+# Example structure for 3-level meta-analysis:
+# res <- rma.mv(yi = effect_size, 
+#               V = sampling_variance, 
+#               random = ~ 1 | study_id / effect_id, 
+#               data = my_data)
+# summary(res)
+
+```
+
+## 🌲 4. Visualizations (Forest & Funnel Plots)
+
+Once the model is fitted, we can generate publication-quality forest plots.
+
+```{r}
+#| label: plots
+# forest(res)
+# funnel(res)
+
+```
+
+```
+
