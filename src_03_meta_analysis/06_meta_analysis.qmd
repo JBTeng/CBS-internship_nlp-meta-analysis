@@ -8,12 +8,8 @@ First, we need to load the required library (`metafor`) and read the processed d
 # Install readxl if you haven't: install.packages("readxl")
 library(metafor)
 library(readxl)
-
-# Define the relative path to your processed data
-# Since this file is inside 'src_03_meta_analysis/', we go up one level to find 'data/'
-data_path <- "../data/processed/05_Data_Extraction_for_R.xlsx"
-
-print(paste("Looking for data at:", data_path))
+library(here)
+library(dplyr)
 ```
 
 ## 📊 2. Data Preview
@@ -22,10 +18,50 @@ Let's read the Excel sheet and take a look at the column structures.
 *(Uncomment the lines below once your Excel file has data)*
 
 ```{r}
-#| label: preview-data
-# my_data <- read_excel(data_path)
-# head(my_data)
-# str(my_data)
+# ==============================================================================
+# 1. Load Dataset
+# ==============================================================================
+data_path <- here("data", "processed", "06_manually_checked_for_R.xlsx")
+my_data <- read_excel(data_path)
+
+# ==============================================================================
+# 2. Preprocessing Logic
+# ==============================================================================
+
+# Locate the index range for metric columns (from 'Accuracy_Top1' to the second-to-last column)
+start_idx <- which(names(my_data) == "Accuracy_Top1")
+metric_cols <- names(my_data)[start_idx:(ncol(my_data) - 1)]
+
+# Count valid numeric entries per metric (as.numeric automatically coerces "Unknown" to NA)
+counts <- suppressWarnings(sapply(my_data[metric_cols], function(x) sum(!is.na(as.numeric(x)))))
+
+# Select the metric with the highest count of valid numeric data as the single target $y$ variable
+best_metric <- names(which.max(counts))
+
+# Print the selection summary to the console
+cat("🏆 Selected target $y$ variable:", best_metric, "(Valid numeric records:", max(counts), ")\n")
+
+# ==============================================================================
+# 3. Data Cleaning & Pipeline Execution
+# ==============================================================================
+# Pipeline: Convert target to numeric -> Filter out NAs -> Select base features + target + last column
+processed_data <- my_data %>% 
+  mutate(!!best_metric := suppressWarnings(as.numeric(.data[[best_metric]]))) %>% 
+  filter(!is.na(.data[[best_metric]])) %>% 
+  select(1:(start_idx - 1), all_of(best_metric), last_col())
+
+# ==============================================================================
+# 4. Inspection & Quality Check
+# ==============================================================================
+cat("\n✅ Data cleaning complete! Retained the final column:", names(processed_data)[ncol(processed_data)], "\n")
+cat("Final Dataset Dimensions:", dim(processed_data)[1], "rows,", ncol(processed_data), "columns\n")
+
+# Preview the clean tibble
+head(processed_data)
+```
+
+```{r}
+
 
 ```
 
