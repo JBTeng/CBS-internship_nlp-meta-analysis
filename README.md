@@ -1,4 +1,3 @@
-
 # 📊 Meta-Analysis: NLP Models for Automated Coding
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
@@ -24,6 +23,10 @@ This study performs a three-level meta-analysis on Natural Language Processing (
 │       ├── 03_manually_updated.ris         # YOUR manual fixes
 │       ├── 04_FINAL_MERGED_DEDUPLICATED.ris # FINAL output for ASReview
 │       └── 05_Data_Extraction_for_R.xlsx    # Extracted effect sizes
+├── renv/                  # Renv local project library configuration
+│   ├── .gitignore         # Automatically generated to exclude heavy binary packages
+│   ├── activate.R         # Renv environment infrastructure activation script
+│   └── settings.json      # Local project-specific environment settings
 ├── src_01_screening/      # Phase 1: Data Cleaning & Pre-screening
 │   ├── 01_ingest_and_standardize.py 
 │   ├── 02_smart_deduplication.py
@@ -34,25 +37,30 @@ This study performs a three-level meta-analysis on Natural Language Processing (
 ├── src_03_meta_analysis/  # Phase 3: Statistical Modeling
 │   └── 06_meta_analysis.qmd         # Quarto interactive R analysis
 ├── results/               # Forest plots, Funnel plots, and Tables
+├── .Rprofile              # R automatic environment activator (Triggers renv sandbox)
+├── .gitignore             # CBS compliance: Ensures data files remain untracked
+├── README.md              # Project documentation
 ├── internship_schedule_template.csv # Project timeline tracking
-├── requirements.txt       # Environment dependencies
-├── .gitignore             # CBS compliance: Data files are untracked
-└── README.md
+├── renv.lock              # R environment lockfile (The reproducibility guarantee)
+└── requirements.txt       # Python environment dependencies
 ```
 
 ## 🛠️ Environment Setup
-To ensure reproducibility, install the required Python and R environments:
+To ensure strict reproducibility across different environments and IDEs (VS Code, RStudio, or pure CLI), initialize the local environments as follows:
 
-**Python Dependencies:**
+### **Python Dependencies:**
 ```bash
 pip install pandas rispy rapidfuzz biopython bibtexparser requests openpyxl
 ```
 
-**R Dependencies:**
-Ensure R is installed with the `metafor` and `httpgd` packages.In VS Code, install the Quarto and R extensions for the best experience.
+### **R Dependencies (via `renv`):**
+This project uses `renv` to maintain an isolated, project-local package library. When you open this project directory, the environment automatically intercepts the R session.
+
+To restore the exact matching versions of all required R packages (including `metafor`, `metadat`, etc.), simply start R in this root directory and execute:
 ```R
-install.packages("metafor")
+renv::restore()
 ```
+*Note: For the best experience in VS Code, ensure both **Quarto** and **R** extensions are installed.*
 
 ## 🚀 The Research Pipeline (PRISMA-Compliant)
 
@@ -60,15 +68,15 @@ This project strictly follows the **PRISMA** workflow, integrating **Human-in-th
 
 ### **Step 1: Data Pre-processing (The 01-04 Workflow)**
 A robust pipeline to ensure data integrity before Active Learning.
-1. **Merge & Standardize(`01`)**: Consolidate ACM, PubMed, and WoS exports into a standardized format (`.ris`).
+1. **Merge & Standardize (`01`)**: Consolidate ACM, PubMed, and WoS exports into a standardized format (`.ris`).
 2. **Initial Deduplication (`02`)**: Hierarchical matching (DOI -> Exact Title -> Fuzzy Title).
 3. **Quality Audit (`03`)**: Scan for missing titles/abstracts. A "patch file" is generated in `data/intermediate/`.
 4. **Manual Imputation**: 
    * Copy the patch to `data/processed/` and rename to `03_manually_updated.ris`.
    * Manually fill in the `[MISSING]` tags (Title/Abstract/DOI).
 5. **Reconcile & Second Deduplication (`04`)**:
-   * Generate patching statistics and report records still lack of metadata (title/abstract/DOI).
-   * Merge your fixes and re-runs deduplication, as newly filled metadata may reveal previously hidden duplicates.
+   * Generate patching statistics and report records still lacking metadata.
+   * Merge your fixes and re-run deduplication, as newly filled metadata may reveal previously hidden duplicates.
 
 ### **Step 2: ASReview & Eligibility Screening**
 1. Import `04_FINAL_MERGED_DEDUPLICATED.ris` into **ASReview LAB**.
@@ -76,11 +84,11 @@ A robust pipeline to ensure data integrity before Active Learning.
 3. Conduct **Full-text Retrieval** and **Eligibility Assessment** based on the PRISMA flow.
 
 ### **Step 3: Data Extraction (`05`)**
-Automated PDF Data Extraction of effect sizes and study characteristics via LLM :
+Automated PDF Data Extraction of effect sizes and study characteristics via LLM:
 ```bash
 python src_02_extraction/05_data_extraction.py
 ```
-*Note: This script uses the Gemini API and Gemini api key is required.*
+*Note: This script uses the Gemini API and a Gemini API key is required.*
 
 ### **Step 4: Meta-Analysis (`06`)**
 Use the Quarto document in `src_03_meta_analysis/` to run the 3-level meta-analysis, investigate heterogeneity, and generate forest plots.
