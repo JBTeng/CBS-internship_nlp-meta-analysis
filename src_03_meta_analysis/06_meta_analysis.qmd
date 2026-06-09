@@ -60,10 +60,38 @@ cat("Final Dataset Dimensions:", dim(processed_data)[1], "rows,", ncol(processed
 head(processed_data)
 ```
 
+## preprocessed varible
 ```{r}
+# 1. Identify columns with exactly 1 unique value
+constant_cols <- names(processed_data)[sapply(processed_data, function(x) length(unique(na.omit(x))) == 1)]
 
+# 2. Report the deleted column names
+cat("Deleted columns:", paste(constant_cols, collapse = ", "), "\n")
 
+# 3. Drop these columns from the dataset
+modeling_data <- processed_data[, !names(processed_data) %in% constant_cols]
 ```
+
+## transformation of the target varible
+```{r}
+y= processed_data$Accuracy_Top1
+# if the metric follow normally distribution?
+hist(y,
+     main = "Distribution of Top-1 Accuracy", # Plot title
+     xlab = "Accuracy Score",                  # X-axis label
+     ylab = "Frequency",               # Y-axis
+     ) 
+```
+```{r}
+# trans 1: log transformation
+hist(log(y),
+     main = "Distribution of Top-1 Accuracy", # Plot title
+     xlab = "Accuracy Score",                  # X-axis label
+     ylab = "Frequency",               # Y-axis
+     ) 
+```
+```{r}
+````
 
 ## 🧠 3. Three-Level Meta-Analysis Modeling
 
