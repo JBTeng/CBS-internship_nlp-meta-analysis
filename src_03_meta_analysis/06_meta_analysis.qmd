@@ -56,11 +56,56 @@ processed_data <- my_data %>%
 cat("\n✅ Data cleaning complete! Retained the final column:", names(processed_data)[ncol(processed_data)], "\n")
 cat("Final Dataset Dimensions:", dim(processed_data)[1], "rows,", ncol(processed_data), "columns\n")
 
-# Preview the clean tibble
-head(processed_data)
+# 
 ```
 
 ## preprocessed varible
+```{r}
+# standardize columns
+## Standardize the 'Num_Classes' column into a categorical variable
+processed_data <- processed_data %>%
+    mutate(
+    # Step 1: Convert Num_Classes to numeric. 
+    # The na_if() function safely converts the string "Unknown" into NA for mathematical logic.
+    Num_Classes = as.numeric(na_if(Num_Classes, "Unknown")),
+    
+    # Step 2: Create the categorical bins (Small, Medium, Large)
+    Num_Classes = case_when(
+    # Force Abdaoui's massive terminology mapping tasks (SNOMED, LOINC, ICD-11) into the "Massive" bin (originally "UNknown")
+        First_Author == "Abdaoui" ~ "Massive",
+      
+        # General binning rules based on numeric thresholds
+        Num_Classes < 20 ~ "Small",
+        Num_Classes >= 20 & Num_Classes <= 100 ~ "Medium",
+        Num_Classes > 100 & Num_Classes <= 1000 ~ "Large",
+        Num_Classes > 1000 ~ "Massive",
+      
+      # Catch-all for any other unhandled missing values
+      TRUE ~ "Not Reported"
+    ))
+
+## standardize 'Data_Scource'
+processed_data = processed_data %>% 
+    mutate(Data_Source = case_when(
+        grepl("MIMIC|google|IPA", Data_Source, ignore.case = TRUE)~ "Public",
+        grepl("Census|IRS|SEER|NCI", Data_Source, ignore.case = TRUE)~ "Government",
+        TRUE ~ "Institutional" # catch-all for Moffitt, Military, Business, UCSD, etc.
+))
+
+## Standardize the 'Avg_Text_Length' column
+processed_data <- processed_data %>%
+    mutate(Avg_Text_Length = case_when(
+    # Catch indicators of short text: the word "Short" or small decimal numbers like "2.76", "3.78"
+    grepl("Short|2\\.76|3\\.78", Avg_Text_Length, ignore.case = TRUE) ~ "Short Text",
+    
+    # Catch indicators of long text: specific large numbers, "tokens", "words", "Full", "Narrative"
+    grepl("439|3000|500|Full|Narrative", Avg_Text_Length, ignore.case = TRUE) ~ "Long Document",
+    # Fallback option just in case
+    TRUE ~ "Not Reported"
+  ))
+
+
+```
 ```{r}
 # 1. Identify columns with exactly 1 unique value
 constant_cols <- names(processed_data)[sapply(processed_data, function(x) length(unique(na.omit(x))) == 1)]
@@ -116,7 +161,7 @@ Once the model is fitted, we can generate publication-quality forest plots.
 #| label: plots
 # forest(res)
 # funnel(res)
-
+table(processed_data$Imbalance_Ratio,processed_data$Imbalance_Strategy)
 ```
 
 ```
