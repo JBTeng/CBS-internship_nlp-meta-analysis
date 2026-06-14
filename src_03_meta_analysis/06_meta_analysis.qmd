@@ -1,168 +1,298 @@
-
 ## 📂 1. Environment Setup & Data Ingestion
 
-First, we need to load the required library (`metafor`) and read the processed data extracted from Phase 2.
+First, we need to load the required packages and read the processed data extracted from Phase 2.
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 #| label: setup-and-load
-# Install readxl if you haven't: install.packages("readxl")
 library(metafor)
 library(readxl)
 library(here)
 library(dplyr)
+library(tidyr)
 ```
 
-## 📊 2. Data Preview
+## 📊 2. Data Loading & Target Variable Selection
 
-Let's read the Excel sheet and take a look at the column structures.
-*(Uncomment the lines below once your Excel file has data)*
+Let's read the Excel sheet and identify the performance metric with the most valid entries to serve as our target variable $y$.
 
 ```{r}
-# ==============================================================================
+#| label: data-loading
 # 1. Load Dataset
-# ==============================================================================
 data_path <- here("data", "processed", "06_manually_checked_for_R.xlsx")
 my_data <- read_excel(data_path)
 
-# ==============================================================================
-# 2. Preprocessing Logic
-# ==============================================================================
-
-# Locate the index range for metric columns (from 'Accuracy_Top1' to the second-to-last column)
+# 2. Preprocessing Logic: Select best metric
 start_idx <- which(names(my_data) == "Accuracy_Top1")
 metric_cols <- names(my_data)[start_idx:(ncol(my_data) - 1)]
 
-# Count valid numeric entries per metric (as.numeric automatically coerces "Unknown" to NA)
+# Count valid numeric entries per metric
 counts <- suppressWarnings(sapply(my_data[metric_cols], function(x) sum(!is.na(as.numeric(x)))))
-
-# Select the metric with the highest count of valid numeric data as the single target $y$ variable
 best_metric <- names(which.max(counts))
 
-# Print the selection summary to the console
 cat("🏆 Selected target $y$ variable:", best_metric, "(Valid numeric records:", max(counts), ")\n")
 
-# ==============================================================================
-# 3. Data Cleaning & Pipeline Execution
-# ==============================================================================
-# Pipeline: Convert target to numeric -> Filter out NAs -> Select base features + target + last column
+# 3. Target Extraction & Initial Filter
 processed_data <- my_data %>% 
   mutate(!!best_metric := suppressWarnings(as.numeric(.data[[best_metric]]))) %>% 
   filter(!is.na(.data[[best_metric]])) %>% 
   select(1:(start_idx - 1), all_of(best_metric), last_col())
 
-# ==============================================================================
-# 4. Inspection & Quality Check
-# ==============================================================================
-cat("\n✅ Data cleaning complete! Retained the final column:", names(processed_data)[ncol(processed_data)], "\n")
-cat("Final Dataset Dimensions:", dim(processed_data)[1], "rows,", ncol(processed_data), "columns\n")
-
-# 
+cat("\n✅ Initial cleaning complete! Retained the final column:", names(processed_data)[ncol(processed_data)], "\n")
+cat("Dimensions before feature standardization:", dim(processed_data)[1], "rows,", ncol(processed_data), "columns\n")
 ```
 
-## preprocessed varible
+## 🧹 3. Feature Engineering & Standardization
+
+Here we consolidate all string manipulation, data binning, and factor conversions into a single, highly efficient `dplyr` pipeline.
+
 ```{r}
-# standardize columns
-## Standardize the 'Num_Classes' column into a categorical variable
+#| label: data-standardization
 processed_data <- processed_data %>%
-    mutate(
-    # Step 1: Convert Num_Classes to numeric. 
-    # The na_if() function safely converts the string "Unknown" into NA for mathematical logic.
-    Num_Classes = as.numeric(na_if(Num_Classes, "Unknown")),
-    
-    # Step 2: Create the categorical bins (Small, Medium, Large)
+  mutate(
+    # --- 1. Num_Classes (Categorical Binning) ---
+    Num_Classes_Numeric = as.numeric(na_if(Num_Classes, "Unknown")),
     Num_Classes = case_when(
-    # Force Abdaoui's massive terminology mapping tasks (SNOMED, LOINC, ICD-11) into the "Massive" bin (originally "UNknown")
-        First_Author == "Abdaoui" ~ "Massive",
-      
-        # General binning rules based on numeric thresholds
-        Num_Classes < 20 ~ "Small",
-        Num_Classes >= 20 & Num_Classes <= 100 ~ "Medium",
-        Num_Classes > 100 & Num_Classes <= 1000 ~ "Large",
-        Num_Classes > 1000 ~ "Massive",
-      
-      # Catch-all for any other unhandled missing values
+      First_Author == "Abdaoui" ~ "Massive",
+      Num_Classes_Numeric < 20 ~ "Small",
+      Num_Classes_Numeric >= 20 & Num_Classes_Numeric <= 100 ~ "Medium",
+      Num_Classes_Numeric > 100 & Num_Classes_Numeric <= 1000 ~ "Large",
+      Num_Classes_Numeric > 1000 ~ "Massive",
       TRUE ~ "Not Reported"
-    ))
-
-## standardize 'Data_Scource'
-processed_data = processed_data %>% 
-    mutate(Data_Source = case_when(
-        grepl("MIMIC|google|IPA", Data_Source, ignore.case = TRUE)~ "Public",
-        grepl("Census|IRS|SEER|NCI", Data_Source, ignore.case = TRUE)~ "Government",
-        TRUE ~ "Institutional" # catch-all for Moffitt, Military, Business, UCSD, etc.
-))
-
-## Standardize the 'Avg_Text_Length' column
-processed_data <- processed_data %>%
-    mutate(Avg_Text_Length = case_when(
-    # Catch indicators of short text: the word "Short" or small decimal numbers like "2.76", "3.78"
-    grepl("Short|2\\.76|3\\.78", Avg_Text_Length, ignore.case = TRUE) ~ "Short Text",
+    ),
     
-    # Catch indicators of long text: specific large numbers, "tokens", "words", "Full", "Narrative"
-    grepl("439|3000|500|Full|Narrative", Avg_Text_Length, ignore.case = TRUE) ~ "Long Document",
-    # Fallback option just in case
-    TRUE ~ "Not Reported"
-  ))
-
-
+    # --- 2. Data_Source ---
+    Data_Source = case_when(
+      grepl("MIMIC|google|IPA", Data_Source, ignore.case = TRUE) ~ "Public",
+      grepl("Census|IRS|SEER|NCI", Data_Source, ignore.case = TRUE) ~ "Government",
+      TRUE ~ "Institutional"
+    ),
+    
+    # --- 3. Train_N (Log10 Transformation) ---
+    # Safely converts "Unknown" to NA, then takes log10
+    log10_Train_N = log10(as.numeric(na_if(Train_N, "Unknown"))),
+    
+    # --- 4. Avg_Text_Length ---
+    Avg_Text_Length = case_when(
+      grepl("Short|2\\.76|3\\.78", Avg_Text_Length, ignore.case = TRUE) ~ "Short Text",
+      grepl("439|3000|500|Full|Narrative", Avg_Text_Length, ignore.case = TRUE) ~ "Long Document",
+      TRUE ~ "Not Reported"
+    ),
+    
+    # --- 5. Imbalance_Ratio (Severity Levels) ---
+    Imbalance_Level = case_when(
+      grepl("≤5|Zipfian|n<10|Top 10%|highly skewed", Imbalance_Ratio, ignore.case = TRUE) ~ 3,
+      grepl("seldom reported|disproportionate", Imbalance_Ratio, ignore.case = TRUE) ~ 2,
+      TRUE ~ 1
+    ),
+    Imbalance_Ratio = factor(
+      Imbalance_Level,
+      levels = c(1, 2, 3),
+      labels = c("1_Low_or_Unknown", "2_Moderate", "3_Severe_LongTail"),
+      ordered = TRUE
+    ),
+    
+    # --- 6. Base_Model (Core Model Extraction) ---
+    Base_Model = case_when(
+      grepl("BERT", Base_Model, ignore.case = TRUE) ~ "BERT",
+      grepl("T5", Base_Model, ignore.case = TRUE) ~ "T5",
+      grepl("LLaMA", Base_Model, ignore.case = TRUE) ~ "LLaMA",
+      grepl("MTHISAN", Base_Model, ignore.case = TRUE) ~ "MTHISAN",
+      grepl("Retrieval|BEACON", Base_Model, ignore.case = TRUE) ~ "Information Retrieval",
+      grepl("Logistic|LR", Base_Model, ignore.case = TRUE) ~ "Logistic Regression",
+      grepl("Naïve|Bayes|MNB", Base_Model, ignore.case = TRUE) ~ "Naive Bayes",
+      grepl("SVM", Base_Model, ignore.case = TRUE) ~ "SVM",
+      grepl("Forest|LightGBM", Base_Model, ignore.case = TRUE) ~ "Tree Ensemble",
+      grepl("Knn", Base_Model, ignore.case = TRUE) ~ "KNN",
+      grepl("Lasso|Elastic|SGD|Perceptron", Base_Model, ignore.case = TRUE) ~ "Linear/Regularized",
+      TRUE ~ "Other"
+    ),
+    
+    # --- 7. Model_Approach (Flat vs Hierarchical) ---
+    Model_Approach = case_when(
+      grepl("Hierarchical", Model_Approach, ignore.case = TRUE) ~ "Hierarchical",
+      grepl("Flat", Model_Approach, ignore.case = TRUE) ~ "Flat",
+      TRUE ~ Model_Approach
+    ),
+    
+    # --- 8. Cross-Validation (CV) ---
+    CV_Applied = case_when(
+      grepl("yes", CV_Applied, ignore.case = TRUE) ~ 1,
+      grepl("no", CV_Applied, ignore.case = TRUE) ~ 0,
+      TRUE ~ NA_real_
+    ),
+    CV_Folds = as.numeric(CV_Folds),
+    
+    # --- 9. Hyperparam_Tuning ---
+    Hyperparam_Tuning = case_when(
+      grepl("Grid Search|Grid search", Hyperparam_Tuning, ignore.case = TRUE) ~ "Grid Search",
+      grepl("Manual", Hyperparam_Tuning, ignore.case = TRUE) ~ "Manual Tuning",
+      grepl("Self-tuning", Hyperparam_Tuning, ignore.case = TRUE) ~ "Self-Tuning",
+      grepl("Not Reported|Unknown", Hyperparam_Tuning, ignore.case = TRUE) ~ "Not Reported",
+      TRUE ~ "Not Reported"
+    ),
+    
+    # --- 10. Factorize Binary Columns ---
+    Human_in_Loop = factor(Human_in_Loop, levels = c(0,1), labels = c('No','Yes')),
+    Open_Source   = factor(Open_Source, levels = c(0,1), labels = c('No','Yes')),
+    Hierarch_Metric = factor(Hierarch_Metric, levels = c(0,1), labels = c('No','Yes'))
+  ) %>%
+  
+  # --- 11. Strategy Flags to Yes/No ---
+  mutate(across(starts_with("Strategy_"), ~ ifelse(. == 1, "Yes", "No"))) %>%
+  
+  # Clean up intermediate calculation columns
+  select(-Num_Classes_Numeric, -Imbalance_Level, -Train_N) 
 ```
+
+## ✂️ 4. Drop Zero-Variance Columns
+
+Remove any columns that ended up having exactly 1 unique value across the entire dataset, as they provide no variance for statistical modeling.
+
 ```{r}
-# 1. Identify columns with exactly 1 unique value
+#| label: drop-constant-cols
+# Identify columns with exactly 1 unique value (ignoring NAs)
 constant_cols <- names(processed_data)[sapply(processed_data, function(x) length(unique(na.omit(x))) == 1)]
 
-# 2. Report the deleted column names
-cat("Deleted columns:", paste(constant_cols, collapse = ", "), "\n")
+cat("🗑️ Deleted columns due to zero variance:", paste(constant_cols, collapse = ", "), "\n")
 
-# 3. Drop these columns from the dataset
-modeling_data <- processed_data[, !names(processed_data) %in% constant_cols]
+# Drop these columns to create the final modeling dataset
+modeling_data <- processed_data %>% select(-all_of(constant_cols))
 ```
 
-## transformation of the target varible
-```{r}
-y= processed_data$Accuracy_Top1
-# if the metric follow normally distribution?
-hist(y,
-     main = "Distribution of Top-1 Accuracy", # Plot title
-     xlab = "Accuracy Score",                  # X-axis label
-     ylab = "Frequency",               # Y-axis
-     ) 
-```
-```{r}
-# trans 1: log transformation
-hist(log(y),
-     main = "Distribution of Top-1 Accuracy", # Plot title
-     xlab = "Accuracy Score",                  # X-axis label
-     ylab = "Frequency",               # Y-axis
-     ) 
-```
-```{r}
-````
+## 📈 5. Target Variable Distribution & Transformation
 
-## 🧠 3. Three-Level Meta-Analysis Modeling
+Checking the distribution of our target accuracy variable to see if standardizations (Logit or Arcsine Square Root) improve normality for Meta-Regression.
+
+```{r, fig.width=12, fig.height=4}
+#| label: target-distribution
+y <- modeling_data[[best_metric]]
+
+# Set up a 1x3 grid for side-by-side comparison
+par(mfrow = c(1, 3))
+
+# 1. Raw Distribution
+hist(y, col="skyblue", border="white",
+     main = "Raw Distribution", 
+     xlab = "Accuracy Score", ylab = "Frequency") 
+
+# 2. Logit Transformation
+hist(log(y/(1-y)), col="lightgreen", border="white",
+     main = "Logit Transformation", 
+     xlab = "Logit(Accuracy)", ylab = "Frequency") 
+
+# 3. Arcsine Square Root Transformation
+hist(asin(sqrt(y)), col="salmon", border="white",
+     main = "Arcsine Sqrt Transformation", 
+     xlab = "Asin(Sqrt(Accuracy))", ylab = "Frequency")
+
+# Reset layout
+par(mfrow = c(1, 1))
+```
+
+## 🧠 6. Three-Level Meta-Analysis Modeling
 
 We will use the `rma.mv` function from the `metafor` package to fit our three-level random-effects model. This accounts for the hierarchical structure (e.g., multiple effect sizes extracted from the same study).
 
 ```{r}
 #| label: meta-model
-# Example structure for 3-level meta-analysis:
-# res <- rma.mv(yi = effect_size, 
-#               V = sampling_variance, 
-#               random = ~ 1 | study_id / effect_id, 
-#               data = my_data)
-# summary(res)
+#| label: meta-model-null-manual
 
+# ==============================================================================
+# 1. Manual Calculation of Effect Size (Logit) and Sampling Variance
+# ==============================================================================
+# Instead of using escalc(), we manually compute the logit-transformed 
+# proportions (yi) and their corresponding sampling variances (vi).
+# Mathematical formulas:
+# yi = ln(p / (1 - p))
+# vi = 1 / (n * p * (1 - p))
+
+modeling_data <- modeling_data %>%
+  mutate(
+    Test_N = as.numeric(Test_N),
+    p = Accuracy_Top1
+  ) %>%
+  filter(!is.na(Test_N) & !is.na(p)) %>%
+  mutate(
+    # Safety boundary: Prevent log(0) or division by zero if any model 
+    # reported exactly 1.0 (100%) or 0.0 accuracy.
+    p_adj = case_when(
+      p == 1.0 ~ 0.9999,
+      p == 0.0 ~ 0.0001,
+      TRUE ~ p
+    ),
+    
+    # Calculate Logit Effect Size (yi)
+    yi = log(p_adj / (1 - p_adj)),
+    
+    # Calculate Sampling Variance (vi)
+    vi = 1 / (Test_N * p_adj * (1 - p_adj))
+  )
+
+# ==============================================================================
+# 2. Fit the Three-Level Null Meta-Analysis Model
+# ==============================================================================
+# Fit an intercept-only (null) model in the Logit space.
+# Random effects structure accounts for dependencies within the same paper.
+# Level 3: First_Author (Between-study variance)
+# Level 2: Trial (Between-model variance within the same study)
+
+res_null <- rma.mv(yi = yi, 
+                   V = vi, 
+                   random = ~ 1 | First_Author / Trial, 
+                   data = modeling_data)
+
+# Print the model summary (Logit Scale)
+cat("--- Null Model Results (Logit Scale) ---\n")
+summary(res_null)
+
+# ==============================================================================
+# 3. Back-transformation to Original Accuracy Scale
+# ==============================================================================
+# Use the inverse logit function to convert the pooled estimate and CIs 
+# back to a 0-1 proportion.
+
+cat("\n\n--- Pooled Accuracy (Back-transformed to 0-1 scale) ---\n")
+predict(res_null, transf = transf.ilogit)
+
+# ==============================================================================
+# Calculate I^2 (Variance Proportions) for the 3-Level Meta-Analysis
+# ==============================================================================
+
+# 1. 提取三层的方差 (Variance components)
+sigma2_3 <- res_null$sigma2[1] # Level 3 (First_Author)
+sigma2_2 <- res_null$sigma2[2] # Level 2 (Trial)
+
+# 2. 计算 Level 1 的典型抽样误差 (Typical sampling variance, v)
+# 采用 Higgins & Thompson (2002) 的经典近似算法
+wi <- 1 / modeling_data$vi
+k <- length(wi)
+v_typical <- (k - 1) / (sum(wi) - (sum(wi^2) / sum(wi)))
+
+# 3. 计算三层的总方差
+total_variance <- sigma2_3 + sigma2_2 + v_typical
+
+# 4. 计算并打印 I^2 百分比
+I2_Level3 <- (sigma2_3 / total_variance) * 100
+I2_Level2 <- (sigma2_2 / total_variance) * 100
+I2_Level1 <- (v_typical / total_variance) * 100
+
+cat("--- Distribution of Variance (I^2 in 3-Level Model) ---\n")
+cat(sprintf("Level 3 (Between-Study / First_Author) : %.2f%%\n", I2_Level3))
+cat(sprintf("Level 2 (Within-Study / Trial)         : %.2f%%\n", I2_Level2))
+cat(sprintf("Level 1 (Sampling Error)               : %.2f%%\n", I2_Level1))
+cat(sprintf("Total True Heterogeneity (I^2)         : %.2f%%\n", I2_Level3 + I2_Level2))
 ```
 
-## 🌲 4. Visualizations (Forest & Funnel Plots)
 
-Once the model is fitted, we can generate publication-quality forest plots.
+## 🌲 7. Visualizations & Crosstabs
+
+Once the model is fitted, we can generate publication-quality forest plots. We can also inspect interactions between categorical predictors.
 
 ```{r}
-#| label: plots
+#| label: plots-and-tables
 # forest(res)
 # funnel(res)
-table(processed_data$Imbalance_Ratio,processed_data$Imbalance_Strategy)
-```
 
+# Cross-tabulation example
+table(modeling_data$Imbalance_Ratio, modeling_data$Imbalance_Strategy)
 ```
-
