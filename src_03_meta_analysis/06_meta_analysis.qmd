@@ -116,8 +116,8 @@ processed_data <- processed_data %>%
     
     # --- 8. Cross-Validation (CV) ---
     CV_Applied = case_when(
-      grepl("yes", CV_Applied, ignore.case = TRUE) ~ 1,
-      grepl("no", CV_Applied, ignore.case = TRUE) ~ 0,
+      grepl("yes", CV_Applied, ignore.case = TRUE) ~ "Yes",
+      grepl("no", CV_Applied, ignore.case = TRUE) ~ "No",
       TRUE ~ NA_real_
     ),
     CV_Folds = as.numeric(CV_Folds),
