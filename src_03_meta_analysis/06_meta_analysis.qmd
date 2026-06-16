@@ -51,25 +51,29 @@ processed_data <- processed_data %>%
   mutate(
     # --- 1. Num_Classes (Categorical Binning) ---
     Num_Classes_Numeric = as.numeric(na_if(Num_Classes, "Unknown")),
-    Num_Classes = case_when(
-      First_Author == "Abdaoui" ~ "Massive",
-      Num_Classes_Numeric < 20 ~ "Small",
-      Num_Classes_Numeric >= 20 & Num_Classes_Numeric <= 100 ~ "Medium",
-      Num_Classes_Numeric > 100 & Num_Classes_Numeric <= 1000 ~ "Large",
-      Num_Classes_Numeric > 1000 ~ "Massive",
-      TRUE ~ "Not Reported"
+    Num_Classes = factor(
+      case_when(
+        # in my case, all 'NA' in a paper, manually label them as "Massive"
+        First_Author == "Abdaoui" ~ "Massive", 
+        Num_Classes_Numeric < 20 ~ "Small",
+        Num_Classes_Numeric >= 20 & Num_Classes_Numeric <= 100 ~ "Medium",
+        Num_Classes_Numeric > 100 & Num_Classes_Numeric <= 1000 ~ "Large",
+        Num_Classes_Numeric > 1000 ~ "Massive",
+      ),
+      levels = c( "Small", "Medium", "Large", "Massive"),
+      ordered = TRUE
     ),
     
     # --- 2. Data_Source ---
     Data_Source = case_when(
-      grepl("MIMIC|google|IPA", Data_Source, ignore.case = TRUE) ~ "Public",
-      grepl("Census|IRS|SEER|NCI", Data_Source, ignore.case = TRUE) ~ "Government",
-      TRUE ~ "Institutional"
+      grepl("MIMIC|google|IPA", Data_Source, ignore.case = TRUE) ~ "Open_Non_Gov",
+      grepl("Census|IRS|SEER|NCI", Data_Source, ignore.case = TRUE) ~ "Regulated_Gov",
+      TRUE ~ "Private"
     ),
     
     # --- 3. Train_N (Log10 Transformation) ---
-    # Safely converts "Unknown" to NA, then takes log10
-    log10_Train_N = log10(as.numeric(na_if(Train_N, "Unknown"))),
+    # Safely converts "Unknown"(non-numeric) to NA, then takes log10
+    Train_N = log10(as.numeric((Train_N))),
     
     # --- 4. Avg_Text_Length ---
     Avg_Text_Length = case_when(
@@ -79,16 +83,11 @@ processed_data <- processed_data %>%
     ),
     
     # --- 5. Imbalance_Ratio (Severity Levels) ---
-    Imbalance_Level = case_when(
-      grepl("≤5|Zipfian|n<10|Top 10%|highly skewed", Imbalance_Ratio, ignore.case = TRUE) ~ 3,
-      grepl("seldom reported|disproportionate", Imbalance_Ratio, ignore.case = TRUE) ~ 2,
-      TRUE ~ 1
-    ),
-    Imbalance_Ratio = factor(
-      Imbalance_Level,
-      levels = c(1, 2, 3),
-      labels = c("1_Low_or_Unknown", "2_Moderate", "3_Severe_LongTail"),
-      ordered = TRUE
+    Imbalance_Ratio = case_when(
+      grepl("≤5|Zipfian|n<10|Top 10%|highly skewed", Imbalance_Ratio, ignore.case = TRUE) ~ "3_Severe_LongTail",
+      grepl("seldom reported|disproportionate|Max freq 8, Min freq 2 occurrences", Imbalance_Ratio, ignore.case = TRUE) ~ "2_Moderate",
+      grepl("Unknown| Not Reported", Imbalance_Ratio, ignore.case = TRUE) ~ 'Unknown',
+      TRUE ~ "1_balanced"
     ),
     
     # --- 6. Base_Model (Core Model Extraction) ---
@@ -118,7 +117,7 @@ processed_data <- processed_data %>%
     CV_Applied = case_when(
       grepl("yes", CV_Applied, ignore.case = TRUE) ~ "Yes",
       grepl("no", CV_Applied, ignore.case = TRUE) ~ "No",
-      TRUE ~ NA_real_
+      TRUE ~ 'Not reported'
     ),
     CV_Folds = as.numeric(CV_Folds),
     
@@ -141,7 +140,9 @@ processed_data <- processed_data %>%
   mutate(across(starts_with("Strategy_"), ~ ifelse(. == 1, "Yes", "No"))) %>%
   
   # Clean up intermediate calculation columns
-  select(-Num_Classes_Numeric, -Imbalance_Level, -Train_N) 
+  select(-Num_Classes_Numeric, -Train_N) %>%
+  # 
+  rename(log10_Train_N = Train_N) 
 ```
 
 ## ✂️ 4. Drop Zero-Variance Columns
@@ -157,7 +158,15 @@ cat("🗑️ Deleted columns due to zero variance:", paste(constant_cols, collap
 
 # Drop these columns to create the final modeling dataset
 modeling_data <- processed_data %>% select(-all_of(constant_cols))
+
+# Factors transformation
+modeling_data <- modeling_data %>%
+  mutate(across(where(is.character), as.factor))
+
+# clear view
+summary(modeling_data)
 ```
+
 
 ## 📈 5. Target Variable Distribution & Transformation
 
