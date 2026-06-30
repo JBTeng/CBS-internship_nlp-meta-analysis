@@ -58,7 +58,7 @@ processed_data <- processed_data %>%
         Num_Classes_Numeric < 20 ~ "Small",
         Num_Classes_Numeric >= 20 & Num_Classes_Numeric <= 100 ~ "Medium",
         Num_Classes_Numeric > 100 & Num_Classes_Numeric <= 1000 ~ "Large",
-        Num_Classes_Numeric > 1000 ~ "Massive",
+        Num_Classes_Numeric > 1000 ~ "Massive"
       ),
       levels = c( "Small", "Medium", "Large", "Massive"),
       ordered = TRUE
@@ -86,7 +86,7 @@ processed_data <- processed_data %>%
     Imbalance_Ratio = case_when(
       grepl("≤5|Zipfian|n<10|Top 10%|highly skewed", Imbalance_Ratio, ignore.case = TRUE) ~ "3_Severe_LongTail",
       grepl("seldom reported|disproportionate|Max freq 8, Min freq 2 occurrences", Imbalance_Ratio, ignore.case = TRUE) ~ "2_Moderate",
-      grepl("Unknown| Not Reported", Imbalance_Ratio, ignore.case = TRUE) ~ 'Unknown',
+      grepl("Unknown|Not Reported", Imbalance_Ratio, ignore.case = TRUE) ~ 'Unknown',
       TRUE ~ "1_balanced"
     ),
     
@@ -139,10 +139,11 @@ processed_data <- processed_data %>%
   # --- 11. Strategy Flags to Yes/No ---
   mutate(across(starts_with("Strategy_"), ~ ifelse(. == 1, "Yes", "No"))) %>%
   
+  # rename train size since it was log-transformed
+  rename(log10_Train_N = Train_N) %>%
+  
   # Clean up intermediate calculation columns
-  select(-Num_Classes_Numeric, -Train_N) %>%
-  # 
-  rename(log10_Train_N = Train_N) 
+  select(-Num_Classes_Numeric)
 ```
 
 ## ✂️ 4. Drop Zero-Variance Columns
@@ -160,15 +161,264 @@ cat("🗑️ Deleted columns due to zero variance:", paste(constant_cols, collap
 modeling_data <- processed_data %>% select(-all_of(constant_cols))
 
 # Factors transformation
-modeling_data <- modeling_data %>%
+modeling_data <- modeling_data %>% 
   mutate(across(where(is.character), as.factor))
 
 # clear view
 summary(modeling_data)
 ```
 
+## 5.  drop the redundant prdictors
+```{r}
+# ==============================================================================
+# Step 1: Dro High Missingness & Low Variance Variables First
+# ========================= =====================================================
+  cleaned_data = modeling_data %>% select(
+    -Prompt_Engineering,     # 92.5% Missing / Zero Variance
+    -CV_Folds,              # 83.3% Missing
+    - Strategy_Data_level, # near zero variance (No: 51 Yes: 3)
+    - Open_Source,         # near zero variance (No: 51 Yes: 3)
+    - Taxonomy_Structure,  # near zero variance (hierarchical: 49 flat: 5)
+    - Model_Approach,      # near zero variance (Flat: 49 Hierarchical: 5 )
+    ) 
+```
+```{r}
+# ==============================================================================
+# 🚨 STAGE 2: SINGLE-AUTHOR NESTED CATEGORY SCAN
+# ==============================================================================
+library(dplyr)
 
-## 📈 5. Target Variable Distribution & Transformation
+cat("\n=================================================================\n")
+cat(" 🚨 STAGE 2: SINGLE-AUTHOR NESTED CATEGORY CHECK\n")
+cat("=================================================================\n")
+# This scan detects if any category belongs EXCLUSIVELY to a single author.
+# Such nesting makes it impossible for rma.mv to distinguish the fixed effect
+# of the category from the random effect of the author, causing fatal singularities.
+
+# Extract all categorical variables
+cat_vars <-  cleaned_data %>% 
+  select(where(is.character) | where(is.factor)) %>%
+  select(-any_of(c("DOI", "First_Author", "Trial")))
+
+found_nested_vars <- FALSE
+
+for (col_name in names(cat_vars)) {
+  
+  # Create a cross-tabulation of First_Author vs the current variable
+  cross_tab <- table(cleaned_data$First_Author, cat_vars[[col_name]])
+  
+  # Calculate how many distinct authors use each category (count non-zero rows per column)
+  authors_per_cat <- colSums(cross_tab > 0)
+  
+  # Find categories that exist in exactly ONE author
+  nested_cats <- names(authors_per_cat)[authors_per_cat == 1]
+  
+  if (length(nested_cats) > 0) {
+    found_nested_vars <- TRUE
+    cat(sprintf("\n⚠️ WARNING: Variable [%s] has categories strictly nested within a single author!\n", col_name))
+    
+    for (cat_name in nested_cats) {
+      # Identify which specific author holds this category
+      author_name <- rownames(cross_tab)[cross_tab[, cat_name] > 0]
+      # Get the number of samples for this category
+      n_samples <- cross_tab[author_name, cat_name]
+      
+      cat(sprintf("   👉 Category '%s' (n = %d) is 100%% exclusive to author '%s'.\n", 
+                  cat_name, n_samples, author_name))
+    }
+    
+    # Print the full cross-tabulation table to let the user see the exact distribution
+    cat(sprintf("\n📊 Full Distribution Table for [%s] across Authors:\n", col_name))
+    print(cross_tab)
+    cat("-----------------------------------------------------------------\n")
+  }
+}
+
+if (!found_nested_vars) {
+  cat("✅ PASSED! No single-author nested categories detected. Your features span across multiple clusters safely.\n")
+}
+```
+```{r}
+# ==============================================================================
+# 🛠️ STAGE 2: Recode & Merge Variables to Resolve Single-Author Nesting
+# ==============================================================================
+cleaned_data <- cleaned_data %>%
+  mutate(
+    # 1. Domain: Medical (disease) vs Non-Medical (industry, occupation, product)
+    Domain = factor(case_when(
+      grepl("disease", Domain, ignore.case = TRUE) ~ "Medical",
+      TRUE ~ "Non-Medical"
+    )),
+    
+    # 2. Language: English vs Non-English (French, Turkish)
+    Language = factor(case_when(
+      grepl("english", Language, ignore.case = TRUE) ~ "English",
+      TRUE ~ "Non-English"
+    )),
+    
+    # 3. Taxonomy_Depth: Combine Top_Level and Intermediate to break nesting
+    Taxonomy_Depth = factor(case_when(
+      Taxonomy_Depth %in% c("Top_Level", "Intermediate") ~ "Reduced_Depth",
+      TRUE ~ "Full_Resolution"
+    )),
+    
+    # 4. NLP_Era: Group into broad historical paradigms
+    NLP_Era = factor(case_when(
+      NLP_Era %in% c("Traditional ML", "Deep Learning (pre-PLM)") ~ "Pre-Transfer",
+      NLP_Era %in% c("PLM", "LLM") ~ "Transfer-Based",
+      TRUE ~ as.character(NLP_Era) # Safety fallback
+    )),
+    
+    # 5. Hyperparam_Tuning: Binary grouping to absorb single-author categories
+    # (Merges Grid Search, Manual Tuning, and Self-Tuning into one "Reported" group)
+    Hyperparam_Tuning = factor(case_when(
+      Hyperparam_Tuning == "Not Reported" ~ "Not_Reported",
+      TRUE ~ "Reported_Tuning"
+    ))
+  ) %>%
+  
+  select(
+    -Class_System,         # Fragmented across 8 specific systems
+    -Base_Model,           # Highly specific to authors (e.g., MTHISAN)
+    -Feature_Extraction,   # 'Static Embeddings' 100% nested
+    -Adaptation_Strategy   # 'PEFT/LoRA' 100% nested
+  )
+
+# Verify the new structure
+cat("\n✅ Data transformation complete. Current dimensions:", dim(cleaned_data), "\n")
+```
+```{r}
+# 🗑️ STAGE 3: Drop Highly Fragmented & Unsalvageable Variables
+#| label: cramers-v-heatmap
+
+# 1. Install and load the corrplot package if you haven't already
+# install.packages("corrplot")
+library(corrplot)
+library(dplyr)
+
+# 2. Select all categorical (factor/character) variables and drop identifiers
+cat_vars <- cleaned_data  %>% 
+  select(where(is.factor) | where(is.character)) %>%
+  select(-any_of(c("DOI", "First_Author", "Trial"))) # Remove non-feature columns
+
+# 3. Initialize an empty matrix for Cramer's V values
+n <- ncol(cat_vars)
+cramer_matrix <- matrix(1, nrow = n, ncol = n, 
+                        dimnames = list(names(cat_vars), names(cat_vars)))
+
+# 4. Compute pairwise Cramer's V using Chi-Square statistic
+for (i in 1:(n - 1)) {
+  for (j in (i + 1):n) {
+    tbl <- table(cat_vars[[i]], cat_vars[[j]])
+    # CRITICAL FIX: We add [ correct = FALSE ] to prevent R from automatically 
+    # shrinking the Chi-Square statistic for 2x2 tables with small cell counts (n < 5).
+    # This restores the true mathematical 1.00 correlation for perfectly aligned features.
+    chi2 <- suppressWarnings(chisq.test(tbl, correct = FALSE)$statistic)
+    v <- sqrt(chi2 / (sum(tbl) * min(nrow(tbl) - 1, ncol(tbl) - 1)))
+    # Handle any potential NaN/NA safely
+    cramer_matrix[i, j] <- cramer_matrix[j, i] <- ifelse(is.na(v) || is.nan(v), 0, v)
+  }
+}
+
+# 5. Plot the publication-quality heatmap
+corrplot(cramer_matrix, 
+         method = "color",        # Use colored squares
+         type = "upper",          # Show only the upper triangle to avoid redundancy
+         tl.col = "black",        # Text label color
+         tl.srt = 45,             # Rotate text labels by 45 degrees
+         addCoef.col = "darkgray",# Add exact Cramer's V values inside the squares
+         number.cex = 0.6,        # Size of the coefficient text
+         title = "Categorical Feature Association (Cramer's V)",
+         mar = c(0, 0, 2, 0))     # Adjust margins to fully display the title
+
+```
+```{r}
+# ==============================================================================
+# 1. Automatically Group Collinear Variables into Disjoint Clusters
+# ==============================================================================
+var_names <- colnames(cramer_matrix)
+visited <- setNames(rep(FALSE, length(var_names)), var_names)
+cluster_id <- 1
+final_clusters <- list()
+
+for (v in var_names) {
+  if (!visited[v]) {
+    # Find all variables that belong to the same equivalence class (Cramer's V > 0.99)
+    # Thanks to transitivity, scanning one row captures the entire cluster perfectly.
+    group <- var_names[cramer_matrix[v, ] > 0.99 & !is.na(cramer_matrix[v, ])]
+    
+    # Mark the whole gang as visited so we don't repeat
+    visited[group] <- TRUE
+    
+    # We only care about clusters that have redundant variables (size > 1)
+    if (length(group) > 1) {
+      
+      # Calculate Degrees of Freedom (DF = unique categories - 1) for each member
+      cluster_df <- data.frame(
+        Cluster_ID = paste0("Cluster_", cluster_id),
+        Variable   = group,
+        DF         = sapply(group, function(x) length(unique(na.omit(modeling_data[[x]]))) - 1),
+        stringsAsFactors = FALSE
+      )
+      
+      # Sort the cluster members: Smallest DF comes first (Best Representative)
+      cluster_df <- cluster_df[order(cluster_df$DF), ]
+      
+      # Generate exact tactical action recommendations for your thesis
+      cluster_df$Action_Recommendation <- c("KEEP (Best Representative)", 
+                                             rep("DROP (Redundant Info)", nrow(cluster_df) - 1))
+      
+      final_clusters[[length(final_clusters) + 1]] <- cluster_df
+      cluster_id <- cluster_id + 1
+    }
+  }
+}
+
+# ==============================================================================
+# 2. Print the Beautiful, Consolidated "Decision Sheet"
+# ==============================================================================
+if (length(final_clusters) > 0) {
+  decision_sheet <- do.call(rbind, final_clusters)
+  cat("\n🏆 CONSOLIDATED FEATURE REDUCTION DECISION SHEET 🏆\n")
+  cat("==============================================================================\n")
+  print(decision_sheet, row.names = FALSE)
+  cat("==============================================================================\n")
+} else {
+  cat("✅ Clean space! No redundant clusters detected.\n")
+}
+```
+
+## 6.  drop the redundant prdictors
+```{r}
+cleaned_data <- cleaned_data %>%
+  select(
+   
+    # cluster 3
+    -Human_in_Loop,)
+````
+```{r}
+library(car)
+# delate 'log10_Train_N'，Avg_Text_Length
+lm_vif_clean_v2 <- lm(yi ~ Taxonomy_Depth + Classification_Logic + 
+                     Num_Classes + Data_Source + Language  + Domain + Imbalance_Ratio +
+                     Strategy_Cost_Sensitive + Strategy_Taxonomy_Mod + 
+                     Strategy_Post_Hoc + Strategy_None + 
+                     Domain_Specific + 
+                     NLP_Era + CV_Applied + Hyperparam_Tuning,
+                      data = cleaned_data)
+
+# 2. 验证（这一步很重要，如果它输出 Empty，说明终于干净了！）
+cat("\n--- 🔍 Checking for Aliased Variables ---\n")
+print(alias(lm_vif_clean_v2))
+
+# 3. make sure all GVIF^(1/(2*Df)) small 5
+vif(lm_vif_clean_v2)
+  
+  ```
+
+
+
+## 📈 6. Target Variable Distribution & Transformation
 
 Checking the distribution of our target accuracy variable to see if standardizations (Logit or Arcsine Square Root) improve normality for Meta-Regression.
 
@@ -198,32 +448,19 @@ hist(asin(sqrt(y)), col="salmon", border="white",
 par(mfrow = c(1, 1))
 ```
 
-## 🧠 6. Three-Level Meta-Analysis Modeling
-
-We will use the `rma.mv` function from the `metafor` package to fit our three-level random-effects model. This accounts for the hierarchical structure (e.g., multiple effect sizes extracted from the same study).
-
 ```{r}
-#| label: meta-model
-#| label: meta-model-null-manual
-
+library(metafor)
 # ==============================================================================
-# 1. Manual Calculation of Effect Size (Logit) and Sampling Variance
+# 1. Calculate Effect Size (Logit) and Sampling Variance
 # ==============================================================================
-# Instead of using escalc(), we manually compute the logit-transformed 
-# proportions (yi) and their corresponding sampling variances (vi).
-# Mathematical formulas:
-# yi = ln(p / (1 - p))
-# vi = 1 / (n * p * (1 - p))
-
-modeling_data <- modeling_data %>%
+cleaned_data <- cleaned_data %>%
   mutate(
     Test_N = as.numeric(Test_N),
     p = Accuracy_Top1
   ) %>%
   filter(!is.na(Test_N) & !is.na(p)) %>%
   mutate(
-    # Safety boundary: Prevent log(0) or division by zero if any model 
-    # reported exactly 1.0 (100%) or 0.0 accuracy.
+    # Safety boundary: Prevent log(0) or division by zero for perfect scores
     p_adj = case_when(
       p == 1.0 ~ 0.9999,
       p == 0.0 ~ 0.0001,
@@ -236,7 +473,270 @@ modeling_data <- modeling_data %>%
     # Calculate Sampling Variance (vi)
     vi = 1 / (Test_N * p_adj * (1 - p_adj))
   )
+```
 
+```{r}
+library(metafor)
+library(dplyr)
+
+# 1. Define all candidate predictors (Full Model scope)
+candidate_vars <- c(
+  "Taxonomy_Depth", "Classification_Logic", "Num_Classes", "Data_Source", 
+  "Language", "Domain", "Imbalance_Ratio", "Strategy_Cost_Sensitive", 
+  "Strategy_Taxonomy_Mod", "Strategy_Post_Hoc", "Strategy_None", 
+  "Domain_Specific", "NLP_Era", "CV_Applied", "Hyperparam_Tuning"
+)
+# 1. Base Null Model
+null_model <- rma.mv(yi = yi, V = vi, mods = ~ 1, 
+                     random = ~ 1 | First_Author / Trial, 
+                     method = "ML", data = cleaned_data,
+                     control = list(iter.max = 30, rel.tol = 1e-5))
+cat("🎯 [Baseline] Null Model BIC =", round(BIC(null_model), 2), "\n\n")
+
+# 2. Scout Round 1
+r1_results <- data.frame(Variable = character(), BIC = numeric(), QMp = numeric(), stringsAsFactors = FALSE)
+
+for (var in candidate_vars) {
+  fmla <- as.formula(paste("yi ~", var))
+  mdl <- tryCatch({
+    rma.mv(yi = yi, V = vi, mods = fmla, random = ~ 1 | First_Author / Trial, 
+           method = "ML", data = cleaned_data, control = list(iter.max = 30))
+  }, error = function(e) NULL)
+  
+  if (!is.null(mdl)) {
+    r1_results <- rbind(r1_results, data.frame(Variable = var, BIC = round(BIC(mdl), 2), QMp = round(mdl$QMp, 4)))
+  }
+}
+
+# Print the Round 1 Leaderboard
+cat("📊 ROUND 1 LEADERBOARD (Look for the LOWEST BIC):\n")
+print(r1_results %>% arrange(BIC), row.names = FALSE)
+```
+```{r}
+# ==============================================================================
+# Chunk 2: Round 2 Scouting (Pairing the Winner of Round 1 with Remainder)
+# ==============================================================================
+# ✍️ HUMAN ACTION: Put the winning variable from Round 1 inside c() below:
+current_model_vars <- c("Strategy_None") 
+
+remaining_vars <- setdiff(candidate_vars, current_model_vars)
+r2_results <- data.frame(Added_Variable = character(), BIC = numeric(), QMp = numeric(), stringsAsFactors = FALSE)
+
+for (var in remaining_vars) {
+  test_vars <- c(current_model_vars, var)
+  fmla <- as.formula(paste("yi ~", paste(test_vars, collapse = " + ")))
+  
+  # Canary check to avoid collinearity within pairs
+  if (any(is.na(coef(lm(fmla, data = cleaned_data))))) next
+  
+  mdl <- tryCatch({
+    rma.mv(yi = yi, V = vi, mods = fmla, random = ~ 1 | First_Author / Trial, 
+           method = "ML", data = cleaned_data, control = list(iter.max = 30))
+  }, error = function(e) NULL)
+  
+  if (!is.null(mdl)) {
+    r2_results <- rbind(r2_results, data.frame(Added_Variable = var, BIC = round(BIC(mdl), 2), QMp = round(mdl$QMp, 4)))
+  }
+}
+
+# Print the Round 2 Leaderboard
+cat("📊 ROUND 2 LEADERBOARD (Compare with your Round 1 baseline BIC):\n")
+print(r2_results %>% arrange(BIC), row.names = FALSE)
+```
+```{r}
+# ==============================================================================
+# Chunk 3: Round 3 Scouting (Fixing Strategy_None + Imbalance_Ratio)
+# ==============================================================================
+# ✍️ HUMAN ACTION: Both winners are now locked in together
+current_model_vars <- c("Strategy_None", "Imbalance_Ratio") 
+
+remaining_vars <- setdiff(candidate_vars, current_model_vars)
+r3_results <- data.frame(Added_Variable = character(), BIC = numeric(), QMp = numeric(), stringsAsFactors = FALSE)
+
+for (var in remaining_vars) {
+  test_vars <- c(current_model_vars, var)
+  fmla <- as.formula(paste("yi ~", paste(test_vars, collapse = " + ")))
+  
+  # Canary check to avoid collinearity within the trio
+  if (any(is.na(coef(lm(fmla, data = cleaned_data))))) next
+  
+  mdl <- tryCatch({
+    rma.mv(yi = yi, V = vi, mods = fmla, random = ~ 1 | First_Author / Trial, 
+           method = "ML", data = cleaned_data, control = list(iter.max = 30))
+  }, error = function(e) NULL)
+  
+  if (!is.null(mdl)) {
+    r3_results <- rbind(r3_results, data.frame(Added_Variable = var, BIC = round(BIC(mdl), 2), QMp = round(mdl$QMp, 4)))
+  }
+}
+
+# Print the Round 3 Leaderboard
+cat("📊 ROUND 3 LEADERBOARD (Compare with your Round 2 baseline BIC: 182.95):\n")
+print(r3_results %>% arrange(BIC), row.names = FALSE)
+```
+
+```{r}
+# ==============================================================================
+# Chunk 4: Round 4 Scouting (Forcing Strategy_None + Imbalance_Ratio + Data_Source)
+# ==============================================================================
+
+# ✍️ HUMAN ACTION: Forcing the top 3 into the model
+current_model_vars <- c("Strategy_None", "Imbalance_Ratio", "Data_Source") 
+
+remaining_vars <- setdiff(candidate_vars, current_model_vars)
+r4_results <- data.frame(Added_Variable = character(), BIC = numeric(), QMp = numeric(), stringsAsFactors = FALSE)
+
+for (var in remaining_vars) {
+  test_vars <- c(current_model_vars, var)
+  fmla <- as.formula(paste("yi ~", paste(test_vars, collapse = " + ")))
+  
+  # Canary check to avoid collinearity within the quad
+  if (any(is.na(coef(lm(fmla, data = cleaned_data))))) next
+  
+  mdl <- tryCatch({
+    rma.mv(yi = yi, V = vi, mods = fmla, random = ~ 1 | First_Author / Trial, 
+           method = "ML", data = cleaned_data, control = list(iter.max = 30))
+  }, error = function(e) NULL)
+  
+  if (!is.null(mdl)) {
+    r4_results <- rbind(r4_results, data.frame(Added_Variable = var, BIC = round(BIC(mdl), 2), QMp = round(mdl$QMp, 4)))
+  }
+}
+
+# Print the Round 4 Leaderboard
+cat("📊 ROUND 4 LEADERBOARD (Compare with your Round 3 baseline BIC: 182.51):\n")
+print(r4_results %>% arrange(BIC), row.names = FALSE)
+```
+
+```{r}
+# ==============================================================================
+# Chunk 5: Round 5 Scouting (Forcing the Quad-Squad)
+# ==============================================================================
+
+# ✍️ Locked in the 4 winners
+current_model_vars <- c("Strategy_None", "Imbalance_Ratio", "Data_Source", "Hyperparam_Tuning") 
+
+remaining_vars <- setdiff(candidate_vars, current_model_vars)
+r5_results <- data.frame(Added_Variable = character(), BIC = numeric(), QMp = numeric(), stringsAsFactors = FALSE)
+
+for (var in remaining_vars) {
+  test_vars <- c(current_model_vars, var)
+  fmla <- as.formula(paste("yi ~", paste(test_vars, collapse = " + ")))
+  if (any(is.na(coef(lm(fmla, data = cleaned_data))))) next
+  
+  mdl <- tryCatch({
+    rma.mv(yi = yi, V = vi, mods = fmla, random = ~ 1 | First_Author / Trial, 
+           method = "ML", data = cleaned_data, control = list(iter.max = 30))
+  }, error = function(e) NULL)
+  
+  if (!is.null(mdl)) {
+    r5_results <- rbind(r5_results, data.frame(Added_Variable = var, BIC = round(BIC(mdl), 2), QMp = round(mdl$QMp, 4)))
+  }
+}
+
+cat("📊 ROUND 5 LEADERBOARD (Compare with your Round 4 baseline BIC: 181.47):\n")
+print(r5_results %>% arrange(BIC), row.names = FALSE)
+```
+
+```{r}
+# ==============================================================================
+# 🌟 RESCUE: Final Multivariable Model with Knapp-Hartung Adjustment
+# ==============================================================================
+library(metafor)
+
+cat("==============================================================================\n")
+cat("🔥 RUNNING RESCUE MODEL: Standard REML with Knapp-Hartung (test='knha')\n")
+cat("==============================================================================\n")
+
+# Use the same Fatal Four predictors
+final_fmla <- as.formula("yi ~ Strategy_None + Imbalance_Ratio + Data_Source + Hyperparam_Tuning")
+
+# Refit using REML with Knapp-Hartung adjustment (The gold standard for small k)
+# We drop the robust() wrapper because N_clusters = 8 is too small for CRVE asymptotic assumptions.
+rescue_model <- rma.mv(yi = yi, V = vi, mods = final_fmla, 
+                       random = ~ 1 | First_Author / Trial, 
+                       method = "REML", test = "knha", # 👈 CRITICAL: Small-sample correction
+                       data = cleaned_data,
+                       control = list(iter.max = 100))
+
+# Print the real publication table
+print(rescue_model)
+```
+
+```{r}
+# ==============================================================================
+# 📊 Safe Model Comparison: Null vs. Optimal (100% Crash-Proof)
+# ==============================================================================
+
+cat("==============================================================================\n")
+cat("⏳ Fitting Null and Optimal Models using 'ML' Method safely...\n")
+cat("==============================================================================\n")
+
+# 1. Null Model (Baseline)
+model_null_ml <- rma.mv(yi = yi, V = vi, mods = ~ 1, 
+                        random = ~ 1 | First_Author / Trial, 
+                        method = "ML", data = cleaned_data,)
+
+# 2. Optimal Model (Your 4 stepwise winners)
+fmla_optimal <- as.formula("yi ~ Strategy_None + Imbalance_Ratio + Data_Source + Hyperparam_Tuning")
+model_optimal_ml <- rma.mv(yi = yi, V = vi, mods = fmla_optimal, 
+                           random = ~ 1 | First_Author / Trial, 
+                           method = "ML", data = cleaned_data,)
+
+
+anova(model_null_ml, model_optimal_ml)
+# Warning message: REML comparisons not meaningful for models with different fixed effects
+# (use 'refit=TRUE' to refit both models based on ML estimation). 
+````
+```{r}
+# 3. Full Model (All 15 stable predictors to show global variance)
+fmla_full <- as.formula("yi ~ Domain + Taxonomy_Depth + Classification_Logic + 
+                        Num_Classes + Data_Source + Language  + 
+                        Imbalance_Ratio + Strategy_Cost_Sensitive + 
+                        Strategy_Taxonomy_Mod + Strategy_Post_Hoc + 
+                        Strategy_None + NLP_Era + Domain_Specific + CV_Applied + Hyperparam_Tuning")
+model_full_ml <- rma.mv(yi = yi, V = vi, mods = fmla_full, 
+                        random = ~ 1 | First_Author / Trial, 
+                        method = "ML", data = cleaned_data)
+
+# ==============================================================================
+# 🏆 The Holy Grail: Likelihood Ratio Test & Information Criteria Comparison
+# ==============================================================================
+cat("\n🏆 MODEL COMPARISON RESULTS 🏆\n")
+cat("==============================================================================\n")
+
+# metafor's anova() automatically handles nested model testing and prints AIC/BIC
+anova(model_optimal_ml, model_full_ml)
+anova(model_null_ml, model_full_ml) # FULL model BIC 194.4703 close  Null 195.6626
+```
+
+
+
+```{r}
+# Step 2: Multi-level Meta-Regression with CRVE
+cat("\n--- CRVE Meta-Regression Results for Model 1 ---\n")
+meta_model_1 <- rma.mv(yi = yi, V = vi, 
+                       mods = ~ Taxonomy_Depth + Classification_Logic + 
+                     Num_Classes + Data_Source + Language + 
+                     log10_Train_N + Avg_Text_Length + Imbalance_Ratio + 
+                     Strategy_Cost_Sensitive + Strategy_Taxonomy_Mod + 
+                     Strategy_Post_Hoc + Strategy_None + 
+                     Domain_Specific + Feature_Extraction + Adaptation_Strategy + CV_Applied + Hyperparam_Tuning, 
+                       random = ~ 1 | First_Author / Trial, 
+                       data = cleaned_data, 
+                       method = "REML")bk
+print(meta_model_1)
+```
+
+
+
+## 🧠 7. Three-Level Meta-Analysis Modeling
+
+We will use the `rma.mv` function from the `metafor` package to fit our three-level random-effects model. This accounts for the hierarchical structure (e.g., multiple effect sizes extracted from the same study).
+
+
+
+```{r}
 # ==============================================================================
 # 2. Fit the Three-Level Null Meta-Analysis Model
 # ==============================================================================
@@ -248,12 +748,14 @@ modeling_data <- modeling_data %>%
 res_null <- rma.mv(yi = yi, 
                    V = vi, 
                    random = ~ 1 | First_Author / Trial, 
-                   data = modeling_data)
+                   data = cleaned_data,
+                   method = "REML", test = "knha")
 
 # Print the model summary (Logit Scale)
 cat("--- Null Model Results (Logit Scale) ---\n")
 summary(res_null)
-
+```
+```{r}
 # ==============================================================================
 # 3. Back-transformation to Original Accuracy Scale
 # ==============================================================================
@@ -262,7 +764,8 @@ summary(res_null)
 
 cat("\n\n--- Pooled Accuracy (Back-transformed to 0-1 scale) ---\n")
 predict(res_null, transf = transf.ilogit)
-
+```
+```{r}
 # ==============================================================================
 # Calculate I^2 (Variance Proportions) for the 3-Level Meta-Analysis
 # ==============================================================================
@@ -292,6 +795,9 @@ cat(sprintf("Level 1 (Sampling Error)               : %.2f%%\n", I2_Level1))
 cat(sprintf("Total True Heterogeneity (I^2)         : %.2f%%\n", I2_Level3 + I2_Level2))
 ```
 
+```{r}
+
+```
 
 ## 🌲 7. Visualizations & Crosstabs
 
@@ -305,3 +811,4 @@ Once the model is fitted, we can generate publication-quality forest plots. We c
 # Cross-tabulation example
 table(modeling_data$Imbalance_Ratio, modeling_data$Imbalance_Strategy)
 ```
+
