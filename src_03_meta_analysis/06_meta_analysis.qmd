@@ -686,7 +686,7 @@ sigma2_L2_null, sigma2_L2_optimal, pseudo_R2_L2))
 ```
 
 
-# 🌲 11. Visualizations & Post-Hoc Analysis
+# 🌲 11. Visualizations
 
 Once the model is fitted, we can generate publication-quality forest plots.
 ```{r}
